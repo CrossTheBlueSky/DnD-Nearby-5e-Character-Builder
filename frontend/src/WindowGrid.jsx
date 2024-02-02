@@ -6,7 +6,7 @@ import DescriptionPane from './DescriptionPane.jsx'
 function WindowGrid(props){
 
     return (
-        <Container  style={{width: "100vw"}}>
+        <Container  p="2.5rem" miw="90vw" >
         <Grid>
             <Grid.Col span={3}><CharacterPane height={rem(500)}/></Grid.Col>
             <Grid.Col span={9}>

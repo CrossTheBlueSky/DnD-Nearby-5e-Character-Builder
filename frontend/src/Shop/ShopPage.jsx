@@ -1,10 +1,11 @@
 import WindowGrid from '../WindowGrid';
 import ShopNav from './ShopNav';
+import ShopChoicePane from './ShopChoicePane';
 
 function ShopPage(){
 
     return (
-        <WindowGrid nav={<ShopNav/>}/>
+        <WindowGrid nav={<ShopNav/>} choice={<ShopChoicePane/>}/>
 
     )
 }

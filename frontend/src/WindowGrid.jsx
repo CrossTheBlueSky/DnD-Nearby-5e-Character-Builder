@@ -1,6 +1,7 @@
 import {Grid, Container, Skeleton, rem} from '@mantine/core'
 import SectionNav from './SectionNav.jsx'
 import CharacterPane from './CharacterPane.jsx'
+import DescriptionPane from './DescriptionPane.jsx'
 
 function WindowGrid(props){
 
@@ -14,8 +15,12 @@ function WindowGrid(props){
                         <SectionNav height={rem(100)} />
                         {props.nav}
                     </Grid.Col>
-                    <Grid.Col span={5}> {props.choice} </Grid.Col>
-                    <Grid.Col span={2}><Skeleton height={rem(425)}/></Grid.Col>
+                    <Grid.Col span={5}> 
+                    <div style={{marginTop: "1.15rem"}}>
+                    {props.choice}
+                    </div>
+                     </Grid.Col>
+                    <Grid.Col span={2}><DescriptionPane/></Grid.Col>
                 </Grid>
             </Grid.Col>
         </Grid>

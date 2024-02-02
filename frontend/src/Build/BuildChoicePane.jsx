@@ -1,11 +1,22 @@
-import {Grid, rem} from '@mantine/core'
+import {Box, Container, Stack, rem} from '@mantine/core'
 
 function BuildChoicePane(){
     return (
-        <Grid>
-            <Grid.Col span={12} height={rem(300)}> Choices go here </Grid.Col>
-            <Grid.Col span={12} height={rem(200)}> Checklist goes here </Grid.Col>
-        </Grid>
+        <Stack h={rem(500)}>
+                <Box h="70%" bg={{base: "gray.8"}}>
+                    <Container>
+                    <h1>Build Choices</h1>
+                    <p>Many Accordions will go here</p>
+                    </Container>
+                </Box> 
+
+                <Box h="30%" bg={{base:"gray.6"}}>
+                    <Container>
+                    <h2>Build Checklist</h2>
+                    <p>Choice clickies go here</p>
+                    </Container>
+                </Box>
+        </Stack>
     )
 }
 

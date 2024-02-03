@@ -91,8 +91,26 @@ function ShopChoicePane(){
                         <Grid.Col span={6}>
                             <Box bg="gray.7" h={225}>
                                 <h5 align="center">Equipped</h5>
-                            <form>
-
+                            <form align="center">
+                                <select>
+                                    <option value="armor">Armor</option>
+                                </select>
+                                <br/>
+                                <select>
+                                    <option value="main-hand">Main Hand</option>
+                                </select>
+                                <br/>
+                                <select>
+                                    <option value="off-hand">Off Hand</option>
+                                </select>
+                                <br/>
+                                <select>
+                                    <option value="attune-slot-1">Attunement Slot 1</option>
+                                </select>
+                                <br/>
+                                <select>
+                                    <option value="attune-slot-2">Attunement Slot 2</option>
+                                </select>
                             </form>
                             </Box>
                         </Grid.Col>

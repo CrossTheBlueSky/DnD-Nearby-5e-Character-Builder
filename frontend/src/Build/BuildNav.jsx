@@ -1,6 +1,7 @@
 import {Container, Tabs} from '@mantine/core';
 import * as classes from '../Styles/tabs.modules.css';
-
+import {useDispatch} from 'react-redux';
+import {setBuildTab} from './buildTabSlice';
 
 const tabs = [
     'Class',
@@ -13,9 +14,10 @@ const tabs = [
 ];
 
 function BuildNav() {
+  const dispatch = useDispatch();
 
   const items = tabs.map((tab) => (
-    <Tabs.Tab value={tab} key={tab}>
+    <Tabs.Tab value={tab} key={tab} onClick={(tab)=>dispatch(setBuildTab(tab.target.outerText))}>
       {tab}
     </Tabs.Tab>
   ));

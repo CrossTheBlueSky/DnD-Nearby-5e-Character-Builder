@@ -2,8 +2,11 @@ import {Grid, Container, Skeleton, rem} from '@mantine/core'
 import SectionNav from './SectionNav.jsx'
 import CharacterPane from './CharacterPane.jsx'
 import DescriptionPane from './DescriptionPane.jsx'
+import {useSelector} from 'react-redux'
 
 function WindowGrid(props){
+
+    const buildTab = useSelector((state) => state.buildTab.buildTab)
 
     return (
         <Container  p="2.5rem" miw="90vw" >

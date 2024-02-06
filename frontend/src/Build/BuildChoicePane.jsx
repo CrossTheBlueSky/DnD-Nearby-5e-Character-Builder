@@ -1,12 +1,27 @@
+import React from 'react'
 import {Box, Container, Stack, rem} from '@mantine/core'
+import axios from 'axios'
+import ClassChoice from './ClassChoice.jsx'
 
 function BuildChoicePane(){
+
+    const [selectedTab, setSelectedTab] = React.useState("Class")
+    const [renderedTab, setRenderedTab] = React.useState(<ClassChoice/>)
+
+    // if (selectedTab === "Class"){
+
+
+    //     setRenderedTab(<ClassChoice/>)
+    
+    // }
+
+
+
     return (
         <Stack h={rem(500)}>
                 <Box h="70%" bg={{base: "gray.8"}}>
                     <Container>
-                    <h1>Build Choices</h1>
-                    <p>Many Accordions will go here</p>
+                        {renderedTab}
                     </Container>
                 </Box> 
 

@@ -4,6 +4,10 @@ import BuildChoicePane from './BuildChoicePane';
 
 function BuildPage(){
 
+    
+
+
+
     return (
         <WindowGrid nav={<BuildNav/>} choice={<BuildChoicePane/>}/>
 

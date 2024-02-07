@@ -23,18 +23,17 @@ function SkillChoice(){
        const chosenSkill = document.querySelector('input[name="Skill-choice"]:checked').value
 
        dispatch(setSkillChoice(chosenSkill))
-       console.log(SkillChoice)
     }
 
         return (
             <form onChange={changeHandler}>
             <fieldset>
-                <legend>Please select your skill:</legend>
+                <legend>Please select your skills:</legend>
                 <Flex justify = "flex-start" wrap="wrap">
                   {allSkillOptions}
                 </Flex>
                 <div>
-                <button type="submit">Submit</button>
+                {/* <button type="submit">Submit</button> */}
                 </div>
             </fieldset>
             </form>

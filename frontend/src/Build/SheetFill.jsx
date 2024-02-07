@@ -1,6 +1,7 @@
 import { PDFDocument } from 'pdf-lib'
+import {useSelector} from 'react-redux'
 
-async function fillForm() {
+async function FillForm() {
   const formUrl = 'https://media.wizards.com/2022/dnd/downloads/DnD_5E_CharacterSheet_FormFillable.pdf'
   
 
@@ -21,12 +22,31 @@ async function fillForm() {
   fields.forEach(field => {
     const type = field.constructor.name
     const name = field.getName()
-    console.log(`${type}: ${name}`)
+    // console.log(`${type}: ${name}`)
     })
-}
 
-fillForm()
+
+
+
   // Get all fields in the PDF by their names
+
+//   const IntField = form.getTextField('INT')
+// const WisField = form.getTextField('WIS')
+// const ChaField = form.getTextField('CHA')
+// const StrField = form.getTextField('STR')
+// const DexField = form.getTextField('DEX')
+// const ConField = form.getTextField('CON')
+
+
+const abilityScores = useSelector((state) => state.abilityScores.abilityScores)
+console.log(abilityScores)
+// IntField.setText
+
+return (<h2>Testing</h2>)
+  }
+
+export default FillForm
+
 //   const nameField = form.getTextField('CharacterName')
 //   const ageField = form.getTextField('Age')
 //   const heightField = form.getTextField('Height')

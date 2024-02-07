@@ -10,6 +10,7 @@ import raceReducer from '../Build/raceChoiceSlice'
 import backgroundReducer from '../Build/backgroundChoiceSlice'
 import featReducer from '../Build/featChoiceSlice'
 import skillReducer from '../Build/skillChoiceSlice'
+import abilityScoreReducer from '../Build/abilityScoreChoiceSlice'
 
 
 export default configureStore({
@@ -25,6 +26,7 @@ export default configureStore({
     background: backgroundReducer,
     feat: featReducer,
     skill: skillReducer,
+    abilityScores: abilityScoreReducer
 
 
   }

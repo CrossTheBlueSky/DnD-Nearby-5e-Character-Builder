@@ -36,10 +36,11 @@ function CharacterPane(){
                 </Accordion>
             </Grid.Col>
             <Grid.Col  mt=".5rem" align="center" span={12}>
-                <Button>Character Sheet</Button>
+                {/* <Button>Character Sheet</Button> */}
+                <Button>Save Character</Button>
             </Grid.Col>
             <Grid.Col align="center" span={12}>
-                <Button>Save Character</Button>
+                <Button>Save As New Character</Button>
             </Grid.Col>
         </Grid>
     )

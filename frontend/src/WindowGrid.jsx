@@ -12,7 +12,6 @@ import {setAllBackgroundData} from './Build/allBackgroundSlice'
 import {setAllSkillData} from './Build/allSkillSlice'
 import {setAllFeatData} from './Build/allFeatSlice'
 
-
 function WindowGrid(props){
 
     const dispatch = useDispatch()

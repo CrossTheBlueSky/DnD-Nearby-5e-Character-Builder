@@ -23,7 +23,6 @@ function RaceChoice(){
        const chosenRace = document.querySelector('input[name="race-choice"]:checked').value
 
        dispatch(setRaceChoice(chosenRace))
-       console.log(raceChoice)
     }
 
         return (
@@ -34,7 +33,7 @@ function RaceChoice(){
                   {allRaceOptions}
                 </Flex>
                 <div>
-                <button type="submit">Submit</button>
+                {/* <button type="submit">Submit</button> */}
                 </div>
             </fieldset>
             </form>

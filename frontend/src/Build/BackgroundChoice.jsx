@@ -9,7 +9,6 @@ function BackgroundChoice(){
 
     const dispatch = useDispatch()
     const BackgroundData = useSelector((state) => state.allBackgroundData.backgrounds[0])
-    const BackgroundChoice = useSelector((state) => state.background.background)
 
     const allBackgroundOptions = BackgroundData.map((BackgroundOption) => {
         return (
@@ -34,7 +33,7 @@ function BackgroundChoice(){
                   {allBackgroundOptions}
                 </Flex>
                 <div>
-                <button type="submit">Submit</button>
+                {/* <button type="submit">Submit</button> */}
                 </div>
             </fieldset>
             </form>

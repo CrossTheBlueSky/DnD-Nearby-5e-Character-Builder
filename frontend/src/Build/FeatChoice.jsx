@@ -1,42 +1,51 @@
 
-import {Flex} from '@mantine/core'
+import {Button} from '@mantine/core'
 import {useSelector, useDispatch} from 'react-redux'
 import {setFeatChoice} from './featChoiceSlice'
 
         
 
-function FeatChoice(){
+function FeatChoice(props){
 
     const dispatch = useDispatch()
     const FeatData = useSelector((state) => state.allFeatData.feats[0].feat)
     const FeatChoice = useSelector((state) => state.feat.feat)
-    const allFeatOptions = FeatData.map((FeatOption) => {
-        return (
-            <div key={FeatOption.page + FeatOption.source + FeatOption.name}>
-                <input type="radio" id={FeatOption.id} name="Feat-choice" value={FeatOption.name}/>
-                <label htmlFor={FeatOption.id}>{FeatOption.name}</label>
-            </div>
-        )})
 
+    const allFeatCheckboxes = FeatData.map((FeatOption) => {
+        return (
+            <div key={FeatOption.name}>
+            <input type="checkbox" name={FeatOption.name} className='featChoice' value={FeatOption.name}/>
+            <label htmlFor={FeatOption.name}>{FeatOption.name}</label>
+            <Button onClick={()=>descriptionPopulator(FeatOption)} mx=".5rem" h="1rem" size="compact-xs"type="button">?</Button>
+            </div>
+        )
+    })
+
+    function descriptionPopulator(feat){
+        props.setHeading(feat.name)
+        props.setDescription(feat.entries[0])
+
+        console.log(feat)
+    }
 
     function changeHandler(){
-       const chosenFeat = document.querySelector('input[name="Feat-choice"]:checked').value
 
-       dispatch(setFeatChoice(chosenFeat))
-       console.log(FeatChoice)
+       const chosenFeats = document.querySelectorAll('.featChoice:checked')
+       const featsArr = []
+       chosenFeats.forEach((feat) => {
+              featsArr.push(feat.value)
+       })
+
+       dispatch(setFeatChoice(featsArr))
+
     }
+
 
         return (
             <form onChange={changeHandler}>
-            <fieldset>
-                <legend>Please select your feat:</legend>
-                <Flex justify = "flex-start" wrap="wrap">
-                  {allFeatOptions}
-                </Flex>
-                <div>
-                {/* <button type="submit">Submit</button> */}
+                <div id="feat-choice">
+                {allFeatCheckboxes}
                 </div>
-            </fieldset>
             </form>
         )
 }

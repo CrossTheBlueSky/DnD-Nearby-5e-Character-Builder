@@ -25,7 +25,7 @@ export default configureStore({
     race : raceReducer,
     background: backgroundReducer,
     feat: featReducer,
-    skill: skillReducer,
+    skills: skillReducer,
     abilityScores: abilityScoreReducer
 
 

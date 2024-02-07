@@ -1,7 +1,6 @@
 import {Grid, Container, Skeleton, rem} from '@mantine/core'
 import SectionNav from './SectionNav.jsx'
 import CharacterPane from './CharacterPane.jsx'
-import BuildChoicePane from './Build/BuildChoicePane.jsx'
 import DescriptionPane from './DescriptionPane.jsx'
 import {useDispatch} from 'react-redux'
 import axios from 'axios'
@@ -16,6 +15,7 @@ import CharacterSheetPDF from './Build/CharacterSheetPDF.jsx'
 function WindowGrid(props){
 
     const dispatch = useDispatch()
+
 
 //gets all of the data required for the Build route
     React.useEffect(() => {        
@@ -58,7 +58,7 @@ function WindowGrid(props){
                     {props.pane}
                     </div>
                      </Grid.Col>
-                    <Grid.Col span={2}><DescriptionPane/></Grid.Col>
+                    <Grid.Col span={2}>{props.description}</Grid.Col>
                 </Grid>
             </Grid.Col>
         </Grid>

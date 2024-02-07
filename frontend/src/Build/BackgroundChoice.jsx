@@ -5,7 +5,7 @@ import {setBackgroundChoice} from './backgroundChoiceSlice'
 
         
 
-function BackgroundChoice(){
+function BackgroundChoice(props){
 
     const dispatch = useDispatch()
     const BackgroundData = useSelector((state) => state.allBackgroundData.backgrounds[0])
@@ -21,8 +21,10 @@ function BackgroundChoice(){
 
     function changeHandler(){
        const chosenBackground = document.querySelector('input[name="Background-choice"]:checked').value
-
+       const backgroundInfo = BackgroundData.filter((background) => background.name === chosenBackground)
        dispatch(setBackgroundChoice(chosenBackground))
+       props.setHeading(chosenBackground)
+       props.setDescription(backgroundInfo[0].entries[1].entries[0])
     }
 
         return (

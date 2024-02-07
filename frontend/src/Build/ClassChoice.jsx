@@ -5,7 +5,7 @@ import {setClassChoice} from './classChoiceSlice'
 
         
 
-function ClassChoice(){
+function ClassChoice(props){
 
     const dispatch = useDispatch()
     const classData = useSelector((state) => state.allClassData.classes)
@@ -23,8 +23,19 @@ function ClassChoice(){
 
     function changeHandler(){
        const chosenClass = document.querySelector('input[name="class-choice"]:checked').value
-
        dispatch(setClassChoice(chosenClass))
+
+            const describedClass = classData.filter((classOption) => classOption.name === chosenClass)
+            
+            if (describedClass[0]){
+                //Artificer has a different fluff array than the other classes. It's the ONLY ONE THAT DOES THIS
+                if(describedClass[0].name === "Artificer"){
+                props.setDescription(describedClass[0].fluff[0].entries[0])
+                props.setHeading(describedClass[0].name)
+                }else{
+                    props.setDescription(describedClass[0].fluff[1].entries[1])
+                    props.setHeading(describedClass[0].name)
+                }}
     }
 
         return (

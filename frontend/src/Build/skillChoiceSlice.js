@@ -1,13 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 export const skillChoiceSlice = createSlice({
-    name: "skill",
+    name: "skills",
     initialState: {
-        skill: ""
+        skills: []
     },
     reducers: {
         setSkillChoice: (state, action) => {
-            state.skill = action.payload;
+            state.skills = action.payload;
         }
     }
 })

@@ -9,9 +9,13 @@ import BackgroundChoice from './BackgroundChoice';
 import SkillChoice from './SkillChoice';
 import FeatChoice from './FeatChoice';
 import AbilityScoreChoice from './AbilityScoreChoice';
+import DescriptionPane from '../DescriptionPane';
 
 
 function BuildPage(){
+
+    const [description, setDescription] = React.useState("This is a description")
+    const [heading, setHeading] = React.useState("Description")
 
     const [renderedTab, setRenderedTab] = React.useState(<ClassChoice/>)
 
@@ -20,24 +24,30 @@ function BuildPage(){
     React.useEffect(() => {
 
         if(buildTab === "Class"){
-            setRenderedTab(<ClassChoice/>)
+            setRenderedTab(<ClassChoice setHeading={setHeading} setDescription={setDescription}/>)
         }else if(buildTab === "Race"){
-        setRenderedTab(<RaceChoice/>)
+        setRenderedTab(<RaceChoice setHeading={setHeading} setDescription={setDescription}/>)
         }else if(buildTab === "Background"){
-        setRenderedTab(<BackgroundChoice/>)
+        setRenderedTab(<BackgroundChoice setHeading={setHeading} setDescription={setDescription}/>)
         }else if(buildTab === "Skills"){
-        setRenderedTab(<SkillChoice/>)}
+        setRenderedTab(<SkillChoice setHeading={setHeading} setDescription={setDescription}/>)}
         else if(buildTab === "Feats"){
-        setRenderedTab(<FeatChoice/>)}
+        setRenderedTab(<FeatChoice setHeading={setHeading} setDescription={setDescription}/>)}
         else if(buildTab === "Ability Scores"){
-        setRenderedTab(<AbilityScoreChoice/>)
+        setRenderedTab(<AbilityScoreChoice setHeading={setHeading} setDescription={setDescription}/>)
         }
     }, [buildTab])
 
 
 
+
+
     return (
-        <WindowGrid nav={<BuildNav/>} pane={<BuildChoicePane tab={renderedTab}/>} />
+        <WindowGrid nav={<BuildNav/>} 
+        pane={<BuildChoicePane tab={renderedTab}/>} 
+
+        description={<DescriptionPane heading={heading} description={description}/>}
+        />
 
     )
 }

@@ -11,6 +11,7 @@ import {setAllRaceData} from './Build/allRaceSlice'
 import {setAllBackgroundData} from './Build/allBackgroundSlice'
 import {setAllSkillData} from './Build/allSkillSlice'
 import {setAllFeatData} from './Build/allFeatSlice'
+import CharacterSheetPDF from './Build/CharacterSheetPDF.jsx'
 
 function WindowGrid(props){
 
@@ -61,6 +62,8 @@ function WindowGrid(props){
                 </Grid>
             </Grid.Col>
         </Grid>
+
+        <CharacterSheetPDF />
         </Container>
     )
 

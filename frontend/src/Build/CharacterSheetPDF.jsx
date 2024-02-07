@@ -1,8 +1,22 @@
 import { PDFDocument } from 'pdf-lib'
+import { useRef } from 'react'
 import {useSelector} from 'react-redux'
+import React from 'react'
 
-async function FillForm() {
-  const formUrl = 'https://media.wizards.com/2022/dnd/downloads/DnD_5E_CharacterSheet_FormFillable.pdf'
+function CharacterSheetPDF(){
+
+  const abilityScores = useSelector((state) => state.abilityScores.abilityScores)
+  const [pdfInfo, setPdfInfo] = React.useState(null)
+
+  React.useEffect(() => {
+    fillForm()
+  },[abilityScores])
+
+
+
+async function fillForm() {
+//  const formUrl = 'https://media.wizards.com/2022/dnd/downloads/DnD_5E_CharacterSheet_FormFillable.pdf'
+const formUrl = './src/Build/DnD_5E_CharacterSheet_FormFillable.pdf'
   
 
   const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
@@ -18,34 +32,51 @@ async function FillForm() {
   
   // Get the form containing all the fields
   const form = pdfDoc.getForm()
-  const fields = form.getFields()
-  fields.forEach(field => {
-    const type = field.constructor.name
-    const name = field.getName()
-    // console.log(`${type}: ${name}`)
-    })
+
+  //This gets the fields and then logs all of their names and types
+        // const fields = form.getFields()
+        // fields.forEach(field => {
+        //   const type = field.constructor.name
+        //   const name = field.getName()
+        //   console.log(`${type}: ${name}`)
+        //   })
 
 
 
 
-  // Get all fields in the PDF by their names
+// Target fields by their names
 
-//   const IntField = form.getTextField('INT')
-// const WisField = form.getTextField('WIS')
-// const ChaField = form.getTextField('CHA')
-// const StrField = form.getTextField('STR')
-// const DexField = form.getTextField('DEX')
-// const ConField = form.getTextField('CON')
-
-
-const abilityScores = useSelector((state) => state.abilityScores.abilityScores)
 console.log(abilityScores)
-// IntField.setText
+const IntField = form.getTextField('INT')
 
-return (<h2>Testing</h2>)
-  }
+const WisField = form.getTextField('WIS')
+const ChaField = form.getTextField('CHA')
+const StrField = form.getTextField('STR')
+const DexField = form.getTextField('DEX')
+const ConField = form.getTextField('CON')
 
-export default FillForm
+
+IntField.setText(`${abilityScores.Intelligence}`)
+WisField.setText(`${abilityScores.Wisdom}`)
+ChaField.setText(`${abilityScores.Charisma}`)
+StrField.setText(`${abilityScores.Strength}`)
+DexField.setText(`${abilityScores.Dexterity}`)
+ConField.setText(`${abilityScores.Constitution}`)
+
+  const pdfBytes = await pdfDoc.save()
+
+  const docUrl = URL.createObjectURL(new Blob([pdfBytes], {type: 'application/pdf'}))
+  setPdfInfo(docUrl);
+
+}
+
+
+
+  
+  return <iframe title="test" src={pdfInfo} ref={useRef(null)}type="application/pdf" />
+  // return <a href="./src/Build/DnD_5E_CharacterSheet_FormFillable.pdf" type="application/pdf" target="_blank">Download Character Sheet</a>
+}
+export default CharacterSheetPDF
 
 //   const nameField = form.getTextField('CharacterName')
 //   const ageField = form.getTextField('Age')

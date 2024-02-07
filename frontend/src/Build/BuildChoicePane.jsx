@@ -1,34 +1,32 @@
-import React from 'react'
 import {Box, Container, Stack, rem} from '@mantine/core'
-import axios from 'axios'
-import ClassChoice from './ClassChoice.jsx'
 
-function BuildChoicePane(){
-
-    const [selectedTab, setSelectedTab] = React.useState("Class")
-    const [renderedTab, setRenderedTab] = React.useState(<ClassChoice/>)
-
-    // if (selectedTab === "Class"){
-
-
-    //     setRenderedTab(<ClassChoice/>)
-    
-    // }
+function BuildChoicePane(props){
 
 
 
     return (
         <Stack h={rem(500)}>
-                <Box h="70%" bg={{base: "gray.8"}}>
-                    <Container>
-                        {renderedTab}
+                <Box h="70%" style={{overflow: "scroll"}} bg={{base: "gray.8"}}>
+                    <Container fluid>
+                        {props.tab}
                     </Container>
                 </Box> 
 
                 <Box h="30%" bg={{base:"gray.6"}}>
-                    <Container>
-                    <h2>Build Checklist</h2>
-                    <p>Choice clickies go here</p>
+                    <Container fz=".75rem" >
+                    <h4 style={{marginTop : ".5rem", marginBottom : ".5rem"}}>Build Checklist</h4>
+                    Choose a class
+                    <br />
+                    Choose a race
+                    <br />
+                    Choose a background
+                    <br />
+                    Choose skills
+                    <br />
+                    Choose feats
+                    <br />
+
+
                     </Container>
                 </Box>
         </Stack>

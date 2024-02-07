@@ -1,23 +1,16 @@
-import axios from "axios"
-import React from "react"
+
 import {Flex} from '@mantine/core'
-import {useDispatch} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import {setClassChoice} from './classChoiceSlice'
-import {setAllClassData} from './allClassSlice'
+
         
 
 function ClassChoice(){
 
-    const [classData, setClassData] = React.useState([])
     const dispatch = useDispatch()
+    const classData = useSelector((state) => state.allClassData.classes)
 
 
-        React.useEffect(() => {        
-        axios.get('http://localhost:5000/classes')
-        .then(response => {
-            setClassData(response.data)
-            dispatch(setAllClassData(response.data))})
-    },[])
 
     const allClassOptions = classData.map((classOption) => {
         return (

@@ -27,11 +27,7 @@ async function main() {
   // console.log(allClasses)
 }
 
-// All databases are variabilized here
 const database = client.db('builder')
-const classes = database.collection('classes')
-const races = database.collection('races')
-const backgrounds = database.collection('backgrounds')
 const spells = database.collection('spells')
 const feats = database.collection('feats')
 const optionalFeatures = database.collection('optional-features')
@@ -67,7 +63,6 @@ app.delete('/characters/', (req, res) => {
 })
 
 app.get('/classes/', (req, res) => {
-  console.log("class get attempted")
   async function getAllClasses() {
     const classes = database.collection('classes');
     const allClasses = await classes.find().toArray();
@@ -78,7 +73,6 @@ app.get('/classes/', (req, res) => {
     .then(classes => {
       const classlist = []
       classes.forEach(c => {
-        console.log(c.class[0])
       classlist.push(c.class[0])
     })
     res.send(classlist)
@@ -87,9 +81,65 @@ app.get('/classes/', (req, res) => {
 })
 
 app.get('/races', (req, res) => {
-  res.send('Races')
-})
+  async function getAllRaces(){
+    const races = database.collection('races')
+    const allRaces = await races.find().toArray()
+    return allRaces
+  }
 
+  getAllRaces()
+  .then(races =>{
+    const raceList = []
+    races.forEach(r => {
+      raceList.push(r.race)
+  })
+  res.send(raceList)
+})})
+
+app.get('/backgrounds', (req, res) => {
+  async function getAllBackgrounds(){
+    const backgrounds = database.collection('backgrounds')
+    const allBackgrounds = await backgrounds.find().toArray()
+    return allBackgrounds
+  }
+
+  getAllBackgrounds()
+  .then(backgrounds =>{
+    const backgroundList = []
+    backgrounds.forEach(b => {
+      backgroundList.push(b.background)
+  })
+  res.send(backgroundList)
+})})
+
+app.get('/skills', (req, res) => {
+  async function getAllSkills(){
+    const skills = database.collection('skills')
+    const allSkills = await skills.find().toArray()
+    return allSkills
+  }
+
+  getAllSkills()
+  .then(skills =>{
+    const skillList = []
+    skills.forEach(s => {
+      skillList.push(s.skill)
+  })
+  res.send(skillList)
+})})
+
+app.get('/feats', (req, res) => {
+  async function getAllFeats(){
+    const feats = database.collection('feats')
+    const allFeats = await feats.find().toArray()
+    return allFeats
+  }
+
+  getAllFeats()
+  .then(feats =>{
+    const featList = []
+    res.send(feats)
+})})
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 

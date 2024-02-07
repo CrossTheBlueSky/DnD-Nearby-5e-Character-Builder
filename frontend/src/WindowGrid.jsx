@@ -1,12 +1,47 @@
 import {Grid, Container, Skeleton, rem} from '@mantine/core'
 import SectionNav from './SectionNav.jsx'
 import CharacterPane from './CharacterPane.jsx'
+import BuildChoicePane from './Build/BuildChoicePane.jsx'
 import DescriptionPane from './DescriptionPane.jsx'
-import {useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
+import axios from 'axios'
+import {setAllClassData} from './Build/allClassSlice'
+import React from 'react'
+import {setAllRaceData} from './Build/allRaceSlice'
+import {setAllBackgroundData} from './Build/allBackgroundSlice'
+import {setAllSkillData} from './Build/allSkillSlice'
+import {setAllFeatData} from './Build/allFeatSlice'
+
 
 function WindowGrid(props){
 
-    const buildTab = useSelector((state) => state.buildTab.buildTab)
+    const dispatch = useDispatch()
+
+//gets all of the data required for the Build route
+    React.useEffect(() => {        
+    axios.get('http://localhost:5000/classes')
+    .then(response => {
+        dispatch(setAllClassData(response.data))})
+    
+    
+    axios.get('http://localhost:5000/races')
+    .then(response => {
+        dispatch(setAllRaceData(response.data))})
+
+    axios.get('http://localhost:5000/backgrounds')
+    .then(response => {
+        dispatch(setAllBackgroundData(response.data))})
+    axios.get('http://localhost:5000/skills')
+    .then(response => {
+        dispatch(setAllSkillData(response.data))})
+    axios.get('http://localhost:5000/feats')
+    .then(response => {
+        dispatch(setAllFeatData(response.data))})
+    }
+,[])
+
+    
+
 
     return (
         <Container  p="2.5rem" miw="90vw" >
@@ -20,7 +55,7 @@ function WindowGrid(props){
                     </Grid.Col>
                     <Grid.Col span={5}> 
                     <div style={{marginTop: "1.15rem"}}>
-                    {props.choice}
+                    {props.pane}
                     </div>
                      </Grid.Col>
                     <Grid.Col span={2}><DescriptionPane/></Grid.Col>

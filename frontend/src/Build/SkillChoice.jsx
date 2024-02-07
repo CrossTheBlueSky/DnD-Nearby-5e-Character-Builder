@@ -18,6 +18,9 @@ function SkillChoice(){
             </div>
         )})
 
+    const allSkillCheckboxes = SkillData.map((SkillOption) => {
+        console.log(SkillOption)
+    })
 
     function changeHandler(){
        const chosenSkill = document.querySelector('input[name="Skill-choice"]:checked').value

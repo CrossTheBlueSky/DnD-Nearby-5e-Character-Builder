@@ -12,12 +12,9 @@ function AbilityScoreChoice(){
     const rolls = []
     const statObj = useSelector((state) => state.abilityScores.abilityScores)
     const [statColumns, setStatColumns] = React.useState([])
-    const [rolled, setRolled] = React.useState({})
 
     function rolledStats(){
-
-
-        setRolled({})
+        let rolled = {}
         for(let i = 0; i < 6; i++){
             let roll = []
  
@@ -32,7 +29,7 @@ function AbilityScoreChoice(){
         for(let i = 0; i < 6; i++){
         
             columns.push([statArr[i], rolls[i]])
-            setRolled(prev => ({...prev, [statArr[i]] : rolls[i]}))
+            rolled = {...rolled, [statArr[i]] : rolls[i]}
             
             
         }

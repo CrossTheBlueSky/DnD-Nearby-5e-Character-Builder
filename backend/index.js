@@ -103,7 +103,7 @@ app.get('/races', (req, res) => {
   .then(races =>{
     const raceList = []
     races.forEach(r => {
-      raceList.push(r.race)
+      raceList.push(r)
   })
   res.send(raceList)
 })})

@@ -12,6 +12,16 @@ function SkillChoice(props){
     const SkillChoice = useSelector((state) => state.skills.skills)
 
     const allSkillCheckboxes = SkillData.map((SkillOption) => {
+
+        if (SkillChoice.includes(SkillOption.name)){
+            return (
+                <div key={SkillOption.name}>
+                <input type="checkbox" name={SkillOption.name} className='skillChoice' value={SkillOption.name} defaultChecked/>
+                <label htmlFor={SkillOption.name}>{SkillOption.name}</label>
+                <Button onClick={()=>descriptionPopulator(SkillOption)} mx=".5rem" h="1rem" size="compact-xs"type="button">?</Button>
+                </div>
+            )
+        }else{
         return (
             <div key={SkillOption.name}>
             <input type="checkbox" name={SkillOption.name} className='skillChoice' value={SkillOption.name}/>
@@ -19,7 +29,7 @@ function SkillChoice(props){
             <Button onClick={()=>descriptionPopulator(SkillOption)} mx=".5rem" h="1rem" size="compact-xs"type="button">?</Button>
             </div>
         )
-    })
+    }})
 
     function descriptionPopulator(skill){
 

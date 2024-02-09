@@ -12,6 +12,15 @@ function FeatChoice(props){
     const FeatChoice = useSelector((state) => state.feat.feat)
 
     const allFeatCheckboxes = FeatData.map((FeatOption) => {
+        if (FeatChoice.includes(FeatOption.name)){
+            return (
+                <div key={FeatOption.name}>
+                <input type="checkbox" name={FeatOption.name} className='featChoice' value={FeatOption.name} defaultChecked/>
+                <label htmlFor={FeatOption.name}>{FeatOption.name}</label>
+                <Button onClick={()=>descriptionPopulator(FeatOption)} mx=".5rem" h="1rem" size="compact-xs"type="button">?</Button>
+                </div>
+            )
+        }else{
         return (
             <div key={FeatOption.name}>
             <input type="checkbox" name={FeatOption.name} className='featChoice' value={FeatOption.name}/>
@@ -19,13 +28,12 @@ function FeatChoice(props){
             <Button onClick={()=>descriptionPopulator(FeatOption)} mx=".5rem" h="1rem" size="compact-xs"type="button">?</Button>
             </div>
         )
-    })
+    }})
 
     function descriptionPopulator(feat){
         props.setHeading(feat.name)
         props.setDescription(feat.entries[0])
 
-        console.log(feat)
     }
 
     function changeHandler(){

@@ -11,12 +11,20 @@ function RaceChoice(){
     const raceData = useSelector((state) => state.allRaceData.races[0])
     const raceChoice = useSelector((state) => state.race.race)
     const allRaceOptions = raceData.map((raceOption) => {
+
+        if (raceChoice === raceOption.name){
+            return (
+                <div key={raceOption.page + raceOption.source + raceOption.name}>
+                    <input type="radio" id={raceOption.id} name="race-choice" value={raceOption.name + raceOption.source} defaultChecked/>
+                    <label htmlFor={raceOption.id}>{raceOption.name + " " + "(" + raceOption.source + ")"}</label>
+                </div>)}
+        else{
         return (
             <div key={raceOption.page + raceOption.source + raceOption.name}>
-                <input type="radio" id={raceOption.id} name="race-choice" value={raceOption.name}/>
-                <label htmlFor={raceOption.id}>{raceOption.name}</label>
+                <input type="radio" id={raceOption.id} name="race-choice" value={raceOption.name + raceOption.source}/>
+                <label htmlFor={raceOption.id}>{raceOption.name + " " + "(" + raceOption.source + ")"}</label>
             </div>
-        )})
+        )}})
 
 
     function changeHandler(){

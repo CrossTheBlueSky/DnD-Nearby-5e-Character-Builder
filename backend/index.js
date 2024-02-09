@@ -39,27 +39,39 @@ const items = database.collection('items')
 
 // Define a test route
 app.get('/', (req, res) => {
-  console.log("root get attempted")
-  res.send('Hello World from Backend!');
+  console.log("App is running")
 })
 
 app.get('/characters', (req, res) => {
-  res.send('Characters');
+  async function getAllCharacters() {
+    const characters = database.collection('characters');
+    const allCharacters = await characters.find().toArray();
+    return allCharacters;
+  }
+
+  getAllCharacters()
+  .then(characters => res.send(characters))
 })
 
-app.post('/characters', (req, res) => {
-  console.log(req.body);
-  res.send('Characters');
+app.get(`/characters/:id`, (req, res) => {
+  res.send('Specific Character')
 })
 
-app.patch('/characters', (req, res) => {
-  console.log(req.body);
-  res.send('Characters');
+app.post('/characters', async (req, res) => {
+
+  const newId = await characters.insertOne(req.body)
+  res.send(newId);
 })
 
-app.delete('/characters/', (req, res) => {
-  console.log(req.body);
-  res.send('Characters');
+app.patch('/characters/', async (req, res) => {
+  console.log(req.body.id)
+  const success = await characters.updateOne({id: req.body.id}, {$set: req.body})
+  res.send(success)
+})
+
+app.delete('/characters', async (req, res) => {
+  const deleted = await characters.deleteOne({id: req.body.id})
+  res.send(deleted);
 })
 
 app.get('/classes/', (req, res) => {
@@ -73,7 +85,7 @@ app.get('/classes/', (req, res) => {
     .then(classes => {
       const classlist = []
       classes.forEach(c => {
-      classlist.push(c.class[0])
+      classlist.push(c)
     })
     res.send(classlist)
   })

@@ -1,7 +1,10 @@
-import {Grid, Container} from '@mantine/core'
+import {Grid, Container, Tabs} from '@mantine/core'
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {setAbilityScoreChoice} from './abilityScoreChoiceSlice'
+import PointBuyCalculator from './PointBuyCalculator.jsx'
+import StatRoller from './StatRoller.jsx'
+import StandardArray from './StandardArray.jsx'
 
 function AbilityScoreChoice(){
 
@@ -39,27 +42,23 @@ function AbilityScoreChoice(){
 
 
 
-
-    const allStatColumns = statColumns.map((statColumn) => {
-
-        return (<>
-        <Grid.Col span={6} key={statColumn + "Stat"}> {statColumn[0]}</Grid.Col>
-        <Grid.Col span={6} key={statColumn + "Value"}> {statColumn[1]}</Grid.Col>
-        </>
-        )}
-    )
-
-
     return (
-        <div>
-            <h4 style={{marginTop : ".25rem", marginBottom : ".5rem"}}>Ability Scores</h4>
-            <Grid>
-                {allStatColumns}
-            </Grid>
-            
-           <Container mt=".5rem"> <button onClick={rolledStats} >Roll for Stats </button>
-           </Container>
-        </div>
+        <Tabs>
+            <Tabs.List>
+                <Tabs.Tab value="rolled">Roll Stats</Tabs.Tab>
+                <Tabs.Tab value="pointBuy">Point Buy</Tabs.Tab>
+                <Tabs.Tab value="standard">Standard Array</Tabs.Tab>
+            </Tabs.List>
+            <Tabs.Panel value="rolled">
+                <StatRoller />
+            </Tabs.Panel>
+            <Tabs.Panel value="pointBuy">
+                <PointBuyCalculator />
+            </Tabs.Panel>
+            <Tabs.Panel value="standard">
+                <StandardArray />
+            </Tabs.Panel>
+        </Tabs>
     )
 }
 

@@ -9,14 +9,24 @@ function BackgroundChoice(props){
 
     const dispatch = useDispatch()
     const BackgroundData = useSelector((state) => state.allBackgroundData.backgrounds[0])
+    const BackgroundChoice = useSelector((state) => state.background.background)
 
     const allBackgroundOptions = BackgroundData.map((BackgroundOption) => {
+
+        if (BackgroundChoice === BackgroundOption.name){
+            return (
+                <div key={BackgroundOption.name}>
+                    <input type="radio" id={BackgroundOption.id} name="Background-choice" value={BackgroundOption.name} defaultChecked/>
+                    <label htmlFor={BackgroundOption.id}>{BackgroundOption.name}</label>
+                </div>
+            )
+        }else{
         return (
             <div key={BackgroundOption.name}>
                 <input type="radio" id={BackgroundOption.id} name="Background-choice" value={BackgroundOption.name}/>
                 <label htmlFor={BackgroundOption.id}>{BackgroundOption.name}</label>
             </div>
-        )})
+        )}})
 
 
     function changeHandler(){

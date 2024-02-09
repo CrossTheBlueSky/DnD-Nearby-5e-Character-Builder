@@ -11,6 +11,7 @@ import backgroundReducer from '../Build/backgroundChoiceSlice'
 import featReducer from '../Build/featChoiceSlice'
 import skillReducer from '../Build/skillChoiceSlice'
 import abilityScoreReducer from '../Build/abilityScoreChoiceSlice'
+import currentCharacterIdReducer from '../currentCharacterIdSlice'
 
 
 export default configureStore({
@@ -26,7 +27,9 @@ export default configureStore({
     background: backgroundReducer,
     feat: featReducer,
     skills: skillReducer,
-    abilityScores: abilityScoreReducer
+    abilityScores: abilityScoreReducer,
+    characterId: currentCharacterIdReducer,
+    
 
 
   }

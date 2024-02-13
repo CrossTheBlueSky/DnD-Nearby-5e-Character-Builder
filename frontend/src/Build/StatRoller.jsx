@@ -20,7 +20,7 @@ const generateStat = () => {
   return rolls.reduce((total, current) => total + current, 0); // Sum the remaining
 };
 
-const StatRoller = () => {
+const StatRoller = (props) => {
   const [stats, setStats] = useState([]);
   const [abilities, setAbilities] = useState({ ...initialAbilities });
 
@@ -40,9 +40,16 @@ const StatRoller = () => {
     setStats((prevStats) => prevStats.filter((item) => item !== stat));
   };
 
+  function setDescription(){
+    const description = "The 4d6 Drop Lowest method generates ability scores through dice rolls, adding randomness and potential for higher scores. For each ability score, roll four six-sided dice (4d6), remove the lowest die, and sum the remaining three. Repeat this process six times to determine the six ability scores."
+    const heading = "Rolled Stats - 4d6 Drop Lowest"
+    props.setDescription(description)
+    props.setHeading(heading)
+  }
+
   return (
     <div>
-      <h3 style={{margin: ".5rem auto"}}>Rolled Stats Generator</h3>
+      <h3 style={{margin: ".5rem auto"}}>Rolled Stats Generator<Button onClick={setDescription} type="button"  mx=".5rem" size="compact-xs">?</Button></h3>
       <Button onClick={generateStats} mx=".5rem" size="compact-xs"type="button">Generate Stats</Button>
     <div>
         <h4 style={{margin: ".5rem auto"}}>Generated Stats</h4>

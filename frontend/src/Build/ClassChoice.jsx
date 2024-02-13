@@ -3,16 +3,29 @@ import {clampUseMovePosition, useDisclosure} from '@mantine/hooks'
 import {Flex, Modal, Button, ScrollArea} from '@mantine/core'
 import {useSelector, useDispatch} from 'react-redux'
 import {setClassChoice} from './classChoiceSlice'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+import { popGraphicsState } from 'pdf-lib'
         
 
 function ClassChoice(props){
+
+
+
 
     const dispatch = useDispatch()
     const classData = useSelector((state) => state.allClassData.classes)
     const classChoice = useSelector((state) => state.class.class)
     const [features, setFeatures] = useState([])
     const [opened, { open, close }] = useDisclosure(false);
+
+    useEffect(() =>{
+        if (document.querySelector('input[name="class-choice"]:checked')){
+        const chosenClass = document.querySelector('input[name="class-choice"]:checked').value
+        const describedClass = classData.filter((classOption) => classOption.class[0].name === chosenClass)
+        descriptionHandler(describedClass)
+        } 
+    
+    }, [])
 
   
     const allClassOptions = classData.map((classOption) => {
@@ -37,18 +50,25 @@ function ClassChoice(props){
        const chosenClass = document.querySelector('input[name="class-choice"]:checked').value
        dispatch(setClassChoice(chosenClass))
             const describedClass = classData.filter((classOption) => classOption.class[0].name === chosenClass)
+            descriptionHandler(describedClass)
             
-            if (describedClass[0]){
-                //Artificer has a different fluff array than the other classes. It's the ONLY ONE THAT DOES THIS
-                if(describedClass[0].class[0].name === "Artificer"){
-                props.setDescription(<>{describedClass[0].class[0].fluff[0].entries[0]}<br/><Button onClick={open}>Class Features</Button></>)
+ 
+    }
+
+    function descriptionHandler(describedClass){
+        if (describedClass[0]){
+            //Artificer has a different fluff array than the other classes. It's the ONLY ONE THAT DOES THIS
+            if(describedClass[0].class[0].name === "Artificer"){
+            props.setDescription(<>{describedClass[0].class[0].fluff[0].entries[0]}<br/><Button onClick={open}>Class Features</Button></>)
+            props.setHeading(describedClass[0].class[0].name)
+            featuresPopulate(describedClass)
+            }else{
+                props.setDescription(<>{describedClass[0].class[0].fluff[1].entries[1]}<br/><Button onClick={open}>Class Features</Button></>)
                 props.setHeading(describedClass[0].class[0].name)
                 featuresPopulate(describedClass)
-                }else{
-                    props.setDescription(<>{describedClass[0].class[0].fluff[1].entries[1]}<br/><Button onClick={open}>Class Features</Button></>)
-                    props.setHeading(describedClass[0].class[0].name)
-                    featuresPopulate(describedClass)
-                }}
+            }}
+
+
     }
 
     function featuresPopulate(chosenClass){

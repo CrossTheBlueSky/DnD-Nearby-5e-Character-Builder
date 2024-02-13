@@ -58,7 +58,7 @@ function WindowGrid(props){
                     {props.pane}
                     </div>
                      </Grid.Col>
-                    <Grid.Col span={2}>{props.description}</Grid.Col>
+                    <Grid.Col h={rem(500)} span={2}>{props.description}</Grid.Col>
                 </Grid>
             </Grid.Col>
         </Grid>

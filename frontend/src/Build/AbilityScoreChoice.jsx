@@ -6,7 +6,7 @@ import PointBuyCalculator from './PointBuyCalculator.jsx'
 import StatRoller from './StatRoller.jsx'
 import StandardArray from './StandardArray.jsx'
 
-function AbilityScoreChoice(){
+function AbilityScoreChoice(props){
 
     const dispatch = useDispatch()
 
@@ -50,13 +50,13 @@ function AbilityScoreChoice(){
                 <Tabs.Tab value="standard">Standard Array</Tabs.Tab>
             </Tabs.List>
             <Tabs.Panel value="rolled">
-                <StatRoller />
+                <StatRoller setDescription={props.setDescription} setHeading={props.setHeading} />
             </Tabs.Panel>
             <Tabs.Panel value="pointBuy">
-                <PointBuyCalculator />
+                <PointBuyCalculator setDescription={props.setDescription} setHeading={props.setHeading} />
             </Tabs.Panel>
             <Tabs.Panel value="standard">
-                <StandardArray />
+                <StandardArray setDescription={props.setDescription} setHeading={props.setHeading} />
             </Tabs.Panel>
         </Tabs>
     )

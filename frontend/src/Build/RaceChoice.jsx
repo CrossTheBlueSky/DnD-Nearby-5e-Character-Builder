@@ -1,10 +1,10 @@
-import {Flex, Grid} from '@mantine/core'
+import {Flex, Grid, Box, STYlE_PROPS_DATA} from '@mantine/core'
 import {useSelector, useDispatch} from 'react-redux'
 import {setRaceChoice} from './raceChoiceSlice'
 
         
 
-function RaceChoice(){
+function RaceChoice(props){
 
     const dispatch = useDispatch()
     const completeRaceData = useSelector((state) => state.allRaceData)
@@ -22,18 +22,49 @@ function RaceChoice(){
     const noNPC = [...noNPCMain, ...subraceData]
     noNPC.sort((a, b) => ((a.raceName || a.name) > (b.raceName || b.name)) ? 1 : -1)
 
+    function abilityBonuses(ability){
+        let abilityBonusString = ""
+        if(ability){
+        for(const [key, value] of Object.entries(ability[0])){
+            if(Object.keys(ability[0]).length === 1){
+                if (key === "cha"){
+                    abilityBonusString += `Cha +${value} `
+                }else{
+                abilityBonusString += `Cha +2, ${key.charAt(0).toUpperCase() + key.slice(1)} +${value} `
+                }
+            }
+            else if(key === "choose"){
+                abilityBonusString += `Choose ${value.count} from ${value.from.map((ability) => ability.ability + " ")}`
+            } else {
+                abilityBonusString += `${key.charAt(0).toUpperCase() + key.slice(1)} +${value} `
+            }
+        }}else{
+            abilityBonusString = "+2 (any) +1 (any) OR +1 to any three"
+        }
+
+        return abilityBonusString
+
+    }
 
     const allRaceOptions = noNPC.map((raceOption) => {
-        // console.log(raceOption)
-        console.log(raceOption)
-        if (raceChoice === raceOption.name){
+        const abilityBonusString = abilityBonuses(raceOption.ability)
+        if (raceChoice.split(' ')[0] === raceOption.name){
+            props.setHeading(raceOption.name)
+            const description = raceOption.entries.map((entry) => {
+                return(
+                    <Box key={entry.name}>
+                    <p><strong>{entry.name}</strong></p>
+                    <p>{entry.entries[0]}</p>
+                    </Box>
+                )})
+            props.setDescription(description)
             return (<Grid key={raceOption.raceName + raceOption.page + raceOption.source + raceOption.name} >
                 <Grid.Col span={4} >
-                    <input type="radio" id={raceOption.id} name="race-choice" value={raceOption.name + raceOption.source} defaultChecked/>
-                    <label htmlFor={raceOption.id}>{raceOption.raceName ? raceOption.raceName +" " + "(" + raceOption.name+")" : raceOption.name + " " + "(" + raceOption.source + ")"}</label>
+                    <input type="radio" id={raceOption.name} name="race-choice" value={raceOption.name + " (" + raceOption.source + ")"} defaultChecked/>
+                    <label htmlFor={raceOption.name}>{raceOption.raceName ? raceOption.raceName +" " + "(" + raceOption.name+")" : raceOption.name + " " + "(" + raceOption.source + ")"}</label>
                 </Grid.Col>
                 <Grid.Col span={4}>
-                    <p>Ability Scores go here</p>
+                   <p>{abilityBonusString}</p>
                 </Grid.Col>
                 <Grid.Col span={4}>
                     <p>Size or source or something useful goes here</p>
@@ -43,11 +74,11 @@ function RaceChoice(){
         else{
         return (<Grid key={raceOption.raceName + raceOption.page + raceOption.source + raceOption.name}>
             <Grid.Col span={4}>
-                <input type="radio" id={raceOption.id} name="race-choice" value={raceOption.name + raceOption.source}/>
-                <label htmlFor={raceOption.id}>{raceOption.raceName ? raceOption.raceName +" " + "(" + raceOption.name+")" : raceOption.name + " " + "(" + raceOption.source + ")"}</label>
+                <input type="radio" id={raceOption.name} name="race-choice" value={raceOption.name +" (" + raceOption.source + ")"}/>
+                <label htmlFor={raceOption.name}>{raceOption.raceName ? raceOption.raceName +" " + "(" + raceOption.name+")" : raceOption.name + " " + "(" + raceOption.source + ")"}</label>
             </Grid.Col>
             <Grid.Col span={4}>
-                    <p>Ability Scores go here</p>
+            <p>{abilityBonusString}</p>
                 </Grid.Col>
                 <Grid.Col span={4}>
                     <p>Size or source or something useful goes here</p>
@@ -68,8 +99,13 @@ function RaceChoice(){
 
     function changeHandler(){
        const chosenRace = document.querySelector('input[name="race-choice"]:checked').value
+       const chosenId = document.querySelector('input[name="race-choice"]:checked').id
+       console.log(chosenId)
+       console.log(chosenRace)
 
        dispatch(setRaceChoice(chosenRace))
+       props.setHeading(chosenRace)
+ 
     }
 
         return (

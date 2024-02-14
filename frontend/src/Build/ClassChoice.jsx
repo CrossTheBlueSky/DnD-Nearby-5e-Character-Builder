@@ -1,6 +1,6 @@
 
 import {clampUseMovePosition, useDisclosure} from '@mantine/hooks'
-import {Flex, Modal, Button, ScrollArea, Affix} from '@mantine/core'
+import {Flex, Modal, Button, ScrollArea} from '@mantine/core'
 import {useSelector, useDispatch} from 'react-redux'
 import {setClassChoice} from './classChoiceSlice'
 import React, {useState, useEffect} from 'react'
@@ -93,9 +93,6 @@ function ClassChoice(props){
                 </div>
             </fieldset>
             </form>
-            <Affix position={{bottom: 85, right: 100}}>
-            <Button style={{position : "sticky"}} type="button" onClick={() => dispatch(setBuildTab("Race"))}>Next</Button>
-            </Affix>
             <Modal opened={opened} h={600} onClose={close} title="Class Features" centered scrollAreaComponent={ScrollArea.Autosize}>
                     {features}              
             </Modal>

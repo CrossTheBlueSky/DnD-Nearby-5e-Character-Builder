@@ -1,5 +1,5 @@
 
-import {Flex, Button, Affix} from '@mantine/core'
+import {Flex} from '@mantine/core'
 import {useSelector, useDispatch} from 'react-redux'
 import {setBackgroundChoice} from './backgroundChoiceSlice'
 import React from 'react'
@@ -120,9 +120,7 @@ function BackgroundChoice(props){
                 </div>
             </fieldset>
             </form>
-            <Affix position={{bottom: 85, right: 100}}>
-            <Button style={{position : "sticky"}} type="button" onClick={() => dispatch(setBuildTab("Ability Scores"))}>Next</Button>
-            </Affix>
+
             </>
         )
 }

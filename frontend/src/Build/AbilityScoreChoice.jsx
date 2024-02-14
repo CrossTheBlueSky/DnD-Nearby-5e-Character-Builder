@@ -1,4 +1,4 @@
-import {Grid, Container, Tabs, Button, Affix} from '@mantine/core'
+import {Grid, Container, Tabs, Button} from '@mantine/core'
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {setAbilityScoreChoice} from './abilityScoreChoiceSlice'
@@ -61,9 +61,6 @@ function AbilityScoreChoice(props){
                 <StandardArray setDescription={props.setDescription} setHeading={props.setHeading} />
             </Tabs.Panel>
         </Tabs>
-        <Affix position={{bottom: 85, right: 100}}>
-            <Button style={{position : "sticky"}} type="button" onClick={() => dispatch(setBuildTab("Skills"))}>Next</Button>
-        </Affix>
         </>
         
     )

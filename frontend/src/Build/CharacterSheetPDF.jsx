@@ -6,6 +6,12 @@ import React from 'react'
 function CharacterSheetPDF(){
 
   const abilityScores = useSelector((state) => state.abilityScores.abilityScores)
+  const background = useSelector((state) => state.background.background)
+  const race = useSelector((state) => state.race.race)
+  const characterClass = useSelector((state) => state.class.class)
+  const feats = useSelector((state) => state.feats.feats)
+  const skills = useSelector((state) => state.skills.skills)
+
   const [pdfInfo, setPdfInfo] = React.useState(null)
 
   React.useEffect(() => {
@@ -54,14 +60,27 @@ const ChaField = form.getTextField('CHA')
 const StrField = form.getTextField('STR')
 const DexField = form.getTextField('DEX')
 const ConField = form.getTextField('CON')
+const NameField1 = form.getTextField('CharacterName')
+const BackgroundField = form.getTextField('Background')
+//const RaceField = form.getTextField('Race')
+const ClassField = form.getTextField('ClassLevel')
+const ProficiencyField = form.getTextField('ProfBonus')
 
 
-IntField.setText(`${abilityScores.Intelligence}`)
-WisField.setText(`${abilityScores.Wisdom}`)
-ChaField.setText(`${abilityScores.Charisma}`)
-StrField.setText(`${abilityScores.Strength}`)
-DexField.setText(`${abilityScores.Dexterity}`)
-ConField.setText(`${abilityScores.Constitution}`)
+IntField.setText(`${abilityScores.intelligence}`)
+WisField.setText(`${abilityScores.wisdom}`)
+ChaField.setText(`${abilityScores.charisma}`)
+StrField.setText(`${abilityScores.strength}`)
+DexField.setText(`${abilityScores.dexterity}`)
+ConField.setText(`${abilityScores.constitution}`)
+NameField1.setText('Test Character')
+BackgroundField.setText(`${background}`)
+//RaceField.setText(`${race}`)
+ClassField.setText(`${characterClass} 1`)
+ProficiencyField.setText('2')
+
+
+
 
   const pdfBytes = await pdfDoc.save()
 

@@ -59,9 +59,6 @@ function SkillChoice(props){
                 {allSkillCheckboxes}
                 </div>
             </form>
-            <Affix position={{bottom: 85, right: 100}}>
-            <Button style={{position : "sticky"}} type="button" onClick={() => dispatch(setBuildTab("Feats"))}>Next</Button>
-        </Affix>
         </>
         )
 }

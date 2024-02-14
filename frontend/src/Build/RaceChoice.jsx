@@ -121,9 +121,7 @@ function RaceChoice(props){
             </fieldset>
 
             </form>
-            <Affix position={{bottom: 85, right: 100}}>
-            <Button style={{position : "sticky"}} type="button" onClick={() => dispatch(setBuildTab("Background"))}>Next</Button>
-            </Affix>
+
 
             </div>
         )

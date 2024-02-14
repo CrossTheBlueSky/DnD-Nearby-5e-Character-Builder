@@ -8,7 +8,7 @@ import {setFeatChoice} from '../Build/featChoiceSlice'
 import {setAbilityScoreChoice} from '../Build/abilityScoreChoiceSlice'
 import {setBackgroundChoice} from '../Build/backgroundChoiceSlice'
 import {setCharacterId} from '../currentCharacterIdSlice'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate } from 'react-router-dom'
 
 
 function Characters(){
@@ -16,12 +16,11 @@ function Characters(){
     const [characterList, setCharacterList] = React.useState([])
     const dispatch = useDispatch()
     const classChoice = useSelector((state) => state.class.class)
-    const navigate = useNavigate()
-
     React.useEffect(() => {
         updateCharacterList()
 
     }, [])
+    const navigate = useNavigate()
 
     function updateCharacterList(){
 
@@ -39,8 +38,9 @@ function Characters(){
         dispatch(setAbilityScoreChoice(character.abilityScores))
         dispatch(setBackgroundChoice(character.background))
         dispatch(setCharacterId(character._id))
+        console.log(character._id)
         navigate('/build')
-
+        
 
     }
 

@@ -1,6 +1,7 @@
-import {Flex, Grid, Box, STYlE_PROPS_DATA} from '@mantine/core'
+import {Affix, Grid, Box, Button} from '@mantine/core'
 import {useSelector, useDispatch} from 'react-redux'
 import {setRaceChoice} from './raceChoiceSlice'
+import {setBuildTab} from './buildTabSlice'
 
         
 
@@ -109,6 +110,8 @@ function RaceChoice(props){
     }
 
         return (
+            <div>
+            
             <form onChange={changeHandler}>
 
             <fieldset>
@@ -118,6 +121,11 @@ function RaceChoice(props){
             </fieldset>
 
             </form>
+            <Affix position={{bottom: 85, right: 100}}>
+            <Button style={{position : "sticky"}} type="button" onClick={() => dispatch(setBuildTab("Background"))}>Next</Button>
+            </Affix>
+
+            </div>
         )
 }
 

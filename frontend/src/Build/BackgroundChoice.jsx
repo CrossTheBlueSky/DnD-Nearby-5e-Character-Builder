@@ -1,8 +1,9 @@
 
-import {Flex} from '@mantine/core'
+import {Flex, Button, Affix} from '@mantine/core'
 import {useSelector, useDispatch} from 'react-redux'
 import {setBackgroundChoice} from './backgroundChoiceSlice'
 import React from 'react'
+import {setBuildTab} from './buildTabSlice'
 
         
 
@@ -26,7 +27,9 @@ function BackgroundChoice(props){
     const BackgroundChoice = useSelector((state) => state.background.background)
 
     const allBackgroundOptions = BackgroundData[0].map((BackgroundOption) => {
-        if (BackgroundChoice === BackgroundOption.name){
+        if(BackgroundOption.name.includes("Baldur") || BackgroundOption.source.includes("AL")){
+            return null}
+        else if (BackgroundChoice === BackgroundOption.name){
             return (
                 <div key={BackgroundOption.name}>
                     <input type="radio" id={BackgroundOption.id} name="Background-choice" value={BackgroundOption.name} defaultChecked/>
@@ -42,8 +45,8 @@ function BackgroundChoice(props){
         )}})
 
     function descriptionHandler(userBackground, backgroundInfo){
-
-        props.setHeading(BackgroundChoice)
+        console.log(backgroundInfo)
+        props.setHeading(backgroundInfo[0].name)
         if(backgroundInfo[0].entries){
                const description = backgroundInfo[0].entries.map((entry) => {
                  let subDescription
@@ -71,6 +74,7 @@ function BackgroundChoice(props){
              let subDescription
              if(entry.type === "list"){
                  subDescription = entry.items.map((item) => {
+                    console.log("breaks in list")
                      return(
                          <div key={item.name}>
                          <p><strong>{item.name}</strong></p>
@@ -80,6 +84,7 @@ function BackgroundChoice(props){
                  })
                  return subDescription
              }else{
+                console.log("breaks in final else")
              return(
                   <div key={entry.name}>
                   <p><strong>{entry.name}</strong></p>
@@ -95,7 +100,6 @@ function BackgroundChoice(props){
        const userBackground = document.querySelector('input[name="Background-choice"]:checked').value
        const backgroundInfo = BackgroundData[0].filter((background) => background.name === userBackground)
        dispatch(setBackgroundChoice(userBackground))
-
         descriptionHandler(userBackground, backgroundInfo)
 
 
@@ -104,6 +108,7 @@ function BackgroundChoice(props){
     
 
         return (
+            <>
             <form onChange={changeHandler}>
             <fieldset>
                 <legend>Please select your Background:</legend>
@@ -115,6 +120,10 @@ function BackgroundChoice(props){
                 </div>
             </fieldset>
             </form>
+            <Affix position={{bottom: 85, right: 100}}>
+            <Button style={{position : "sticky"}} type="button" onClick={() => dispatch(setBuildTab("Ability Scores"))}>Next</Button>
+            </Affix>
+            </>
         )
 }
 

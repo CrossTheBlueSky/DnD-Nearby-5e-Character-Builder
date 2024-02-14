@@ -7,7 +7,7 @@ const tabs = [
     'Load Existing',
 ]
 
-function ShopNav() {
+function StartNav() {
 
   const items = tabs.map((tab) => (
     <Tabs.Tab value={tab} key={tab}>
@@ -35,4 +35,4 @@ function ShopNav() {
   );
 }
 
-export default ShopNav
+export default StartNav

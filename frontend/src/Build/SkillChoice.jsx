@@ -1,7 +1,8 @@
 
-import {Button} from '@mantine/core'
+import {Button, Affix} from '@mantine/core'
 import {useSelector, useDispatch} from 'react-redux'
 import {setSkillChoice} from './skillChoiceSlice'
+import {setBuildTab} from './buildTabSlice'
 
         
 
@@ -19,6 +20,7 @@ function SkillChoice(props){
                 <input type="checkbox" name={SkillOption.name} className='skillChoice' value={SkillOption.name} defaultChecked/>
                 <label htmlFor={SkillOption.name}>{SkillOption.name}</label>
                 <Button onClick={()=>descriptionPopulator(SkillOption)} mx=".5rem" h="1rem" size="compact-xs"type="button">?</Button>
+
                 </div>
             )
         }else{
@@ -51,11 +53,16 @@ function SkillChoice(props){
     }
 
         return (
+            <>
             <form onChange={changeHandler}>
                 <div id="skill-choice">
                 {allSkillCheckboxes}
                 </div>
             </form>
+            <Affix position={{bottom: 85, right: 100}}>
+            <Button style={{position : "sticky"}} type="button" onClick={() => dispatch(setBuildTab("Feats"))}>Next</Button>
+        </Affix>
+        </>
         )
 }
 

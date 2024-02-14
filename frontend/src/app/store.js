@@ -25,7 +25,7 @@ export default configureStore({
     allSkillData: allSkillReducer,
     race : raceReducer,
     background: backgroundReducer,
-    feat: featReducer,
+    feats: featReducer,
     skills: skillReducer,
     abilityScores: abilityScoreReducer,
     characterId: currentCharacterIdReducer,

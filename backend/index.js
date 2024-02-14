@@ -1,5 +1,6 @@
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 const cors = require('cors');
 
 const app = express();
@@ -63,9 +64,10 @@ app.post('/characters', async (req, res) => {
   res.send(newId);
 })
 
-app.patch('/characters/', async (req, res) => {
-  console.log(req.body.id)
-  const success = await characters.updateOne({id: req.body.id}, {$set: req.body})
+app.patch('/characters', async (req, res) => {
+  const id = new ObjectId(req.body.id.id)
+  const success = await characters.updateOne({_id: id}, {$set: req.body.patch})
+  console.log(success.matchedCount, success.modifiedCount)
   res.send(success)
 })
 

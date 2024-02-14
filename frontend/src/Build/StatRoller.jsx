@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import {Button, Container} from '@mantine/core';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setAbilityScoreChoice } from './abilityScoreChoiceSlice';
 
-const initialAbilities = {
+const initialabilityScores = {
   strength: null,
   dexterity: null,
   constitution: null,
@@ -20,51 +21,53 @@ const generateStat = () => {
   return rolls.reduce((total, current) => total + current, 0); // Sum the remaining
 };
 
-const StatRoller = (props) => {
+const AbilityScoreGenerator = () => {
   const [stats, setStats] = useState([]);
-  const [abilities, setAbilities] = useState({ ...initialAbilities });
+
+  const dispatch = useDispatch();
+  const abilityScores = useSelector((state) => state.abilityScores.abilityScores);
 
   const generateStats = () => {
     const newStats = Array(6).fill(0).map(() => generateStat());
     setStats(newStats);
-    setAbilities({ ...initialAbilities });
+    dispatch(setAbilityScoreChoice({ ...initialabilityScores }));
   };
 
   const assignStat = (ability, stat) => {
-    setAbilities((prevAbilities) => ({
-      ...prevAbilities,
-      [ability]: stat,
-    }));
+    const newAbilityScores = { ...abilityScores, [ability]: stat};
+    dispatch(setAbilityScoreChoice(newAbilityScores));
+    console.log(abilityScores);
 
-    // Remove the assigned stat from the available stats
-    setStats((prevStats) => prevStats.filter((item) => item !== stat));
+    // Remove the first instance of the assigned stat from the available stats
+    setStats((prevStats) => {
+      const index = prevStats.indexOf(stat);
+      if (index !== -1) {
+        const newStats = [...prevStats];
+        newStats.splice(index, 1);
+        return newStats;
+      }
+      return prevStats;
+    });
   };
-
-  function setDescription(){
-    const description = "The 4d6 Drop Lowest method generates ability scores through dice rolls, adding randomness and potential for higher scores. For each ability score, roll four six-sided dice (4d6), remove the lowest die, and sum the remaining three. Repeat this process six times to determine the six ability scores."
-    const heading = "Rolled Stats - 4d6 Drop Lowest"
-    props.setDescription(description)
-    props.setHeading(heading)
-  }
 
   return (
     <div>
-      <h3 style={{margin: ".5rem auto"}}>Rolled Stats Generator<Button onClick={setDescription} type="button"  mx=".5rem" size="compact-xs">?</Button></h3>
-      <Button onClick={generateStats} mx=".5rem" size="compact-xs"type="button">Generate Stats</Button>
-    <div>
-        <h4 style={{margin: ".5rem auto"}}>Generated Stats</h4>
+      <h2>Ability Score Generator</h2>
+      <button onClick={generateStats}>Generate Stats</button>
+      <div>
+        <h3>Generated Stats</h3>
         {stats.map((stat, index) => (
-          <span key={index} style={{ margin: '.5rem' }}>{stat}</span>
+          <span key={index} style={{ margin: '0 10px' }}>{stat}</span>
         ))}
       </div>
       <div>
-        <h3>Assign Stats to Abilities</h3>
-        {Object.keys(abilities).map((ability) => (
+        <h3>Assign Stats to abilityScores</h3>
+        {Object.keys(abilityScores).map((ability) => (
           <div key={ability}>
             <span>{ability.charAt(0).toUpperCase() + ability.slice(1)}: </span>
-            {abilities[ability] || (
-              <select onChange={(e) => assignStat(ability, Number(e.target.value))} value={abilities[ability] || ''}>
-                <option value="">Assign Scores</option>
+            {abilityScores[ability] || (
+              <select onChange={(e) => assignStat(ability, Number(e.target.value))} value={abilityScores[ability] || ''}>
+                <option value="">Select a stat</option>
                 {stats.map((stat, index) => (
                   <option key={index} value={stat}>{stat}</option>
                 ))}
@@ -77,4 +80,4 @@ const StatRoller = (props) => {
   );
 };
 
-export default StatRoller;
+export default AbilityScoreGenerator;

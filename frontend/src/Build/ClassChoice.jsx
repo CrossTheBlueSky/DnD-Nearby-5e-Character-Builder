@@ -1,32 +1,23 @@
 
 import {clampUseMovePosition, useDisclosure} from '@mantine/hooks'
-import {Flex, Modal, Button, ScrollArea} from '@mantine/core'
+import {Flex, Modal, Button, ScrollArea, Affix} from '@mantine/core'
 import {useSelector, useDispatch} from 'react-redux'
 import {setClassChoice} from './classChoiceSlice'
-import {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import { popGraphicsState } from 'pdf-lib'
+import {setBuildTab} from './buildTabSlice';
         
 
 function ClassChoice(props){
-
-
-
 
     const dispatch = useDispatch()
     const classData = useSelector((state) => state.allClassData.classes)
     const classChoice = useSelector((state) => state.class.class)
     const [features, setFeatures] = useState([])
     const [opened, { open, close }] = useDisclosure(false);
-
-    useEffect(() =>{
-        if (document.querySelector('input[name="class-choice"]:checked')){
-        const chosenClass = document.querySelector('input[name="class-choice"]:checked').value
-        const describedClass = classData.filter((classOption) => classOption.class[0].name === chosenClass)
-        descriptionHandler(describedClass)
-        } 
-    
-    }, [])
-
+    React.useEffect(() => {
+        if(props.setDescription){
+        descriptionHandler(classData.filter((classOption) => classOption.class[0].name === classChoice))}}, [])
   
     const allClassOptions = classData.map((classOption) => {
         if (classChoice === classOption.class[0].name){
@@ -102,6 +93,9 @@ function ClassChoice(props){
                 </div>
             </fieldset>
             </form>
+            <Affix position={{bottom: 85, right: 100}}>
+            <Button style={{position : "sticky"}} type="button" onClick={() => dispatch(setBuildTab("Race"))}>Next</Button>
+            </Affix>
             <Modal opened={opened} h={600} onClose={close} title="Class Features" centered scrollAreaComponent={ScrollArea.Autosize}>
                     {features}              
             </Modal>

@@ -1,7 +1,8 @@
 
-import {Button} from '@mantine/core'
+import {Button, Affix} from '@mantine/core'
 import {useSelector, useDispatch} from 'react-redux'
 import {setFeatChoice} from './featChoiceSlice'
+import {setBuildTab} from './buildTabSlice'
 
         
 
@@ -9,7 +10,7 @@ function FeatChoice(props){
 
     const dispatch = useDispatch()
     const FeatData = useSelector((state) => state.allFeatData.feats[0].feat)
-    const FeatChoice = useSelector((state) => state.feat.feat)
+    const FeatChoice = useSelector((state) => state.feats.feats)
 
     const allFeatCheckboxes = FeatData.map((FeatOption) => {
         if (FeatChoice.includes(FeatOption.name)){
@@ -50,11 +51,14 @@ function FeatChoice(props){
 
 
         return (
+            <>
             <form onChange={changeHandler}>
                 <div id="feat-choice">
                 {allFeatCheckboxes}
                 </div>
             </form>
+
+            </>
         )
 }
 

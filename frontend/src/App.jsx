@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
@@ -10,6 +10,8 @@ import ShopPage from './Shop/ShopPage.jsx';
 
 function App() {
   const [message, setMessage] = useState('');
+  const location = useLocation();
+  console.log(location.state)
 
   useEffect(() => {
     axios.get('http://localhost:5000/')

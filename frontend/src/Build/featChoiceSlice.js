@@ -1,13 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 export const featChoiceSlice = createSlice({
-    name: "feat",
+    name: "feats",
     initialState: {
-        feat: ""
+        feats: ""
     },
     reducers: {
         setFeatChoice: (state, action) => {
-            state.feat = action.payload;
+            state.feats = action.payload;
         }
     }
 })

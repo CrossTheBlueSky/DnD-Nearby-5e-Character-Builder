@@ -1,10 +1,11 @@
-import {Grid, Container, Tabs} from '@mantine/core'
+import {Grid, Container, Tabs, Button, Affix} from '@mantine/core'
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {setAbilityScoreChoice} from './abilityScoreChoiceSlice'
 import PointBuyCalculator from './PointBuyCalculator.jsx'
 import StatRoller from './StatRoller.jsx'
 import StandardArray from './StandardArray.jsx'
+import {setBuildTab} from './buildTabSlice'
 
 function AbilityScoreChoice(props){
 
@@ -43,6 +44,7 @@ function AbilityScoreChoice(props){
 
 
     return (
+        <>
         <Tabs>
             <Tabs.List>
                 <Tabs.Tab value="rolled">Roll Stats</Tabs.Tab>
@@ -59,6 +61,11 @@ function AbilityScoreChoice(props){
                 <StandardArray setDescription={props.setDescription} setHeading={props.setHeading} />
             </Tabs.Panel>
         </Tabs>
+        <Affix position={{bottom: 85, right: 100}}>
+            <Button style={{position : "sticky"}} type="button" onClick={() => dispatch(setBuildTab("Skills"))}>Next</Button>
+        </Affix>
+        </>
+        
     )
 }
 

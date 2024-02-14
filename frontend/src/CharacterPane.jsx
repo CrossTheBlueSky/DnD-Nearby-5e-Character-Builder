@@ -12,7 +12,7 @@ function CharacterPane(){
     const chosenBackground = useSelector((state) => state.background.background)
     const chosenRace = useSelector((state) => state.race.race)
     const chosenSkills = useSelector((state) => state.skills.skills)
-    const chosenFeats = useSelector((state) => state.feat.feat)
+    const chosenFeats = useSelector((state) => state.feats.feats)
     const abilityScores = useSelector((state) => state.abilityScores.abilityScores)
     const currentCharacterId = useSelector((state) => state.characterId.characterId)
     const dispatch = useDispatch()
@@ -34,15 +34,16 @@ function CharacterPane(){
     }
 
     function patchHandler(){
+        const patchObj = {name: "Test Character",
+        class: chosenClass,
+        background: chosenBackground,
+        race: chosenRace,
+        skills: chosenSkills,
+        feats: chosenFeats,
+        abilityScores: abilityScores}
         axios.patch(`http://localhost:5000/characters/`, {
-            id: currentCharacterId,
-            name: "Test Character",
-            class: chosenClass,
-            background: chosenBackground,
-            race: chosenRace,
-            skills: chosenSkills,
-            feats: chosenFeats,
-            abilityScores: abilityScores})
+           id: { id: currentCharacterId}, patch : patchObj})
+            
     }
 
 

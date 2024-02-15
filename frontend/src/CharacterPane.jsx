@@ -50,8 +50,8 @@ function CharacterPane(){
     return (
         <Grid>
             <Grid.Col align="center" span={12}>
-                <h1 style={{marginBottom: ".25rem", paddingBottom: "0"}}>Character</h1>
-                <Image h={200} w={200} src="https://via.placeholder.com/150" alt="character portrait" />
+                <h4 style={{marginBottom: ".25rem", paddingBottom: "0"}}>Character</h4>
+                <Image h={100} src="https://via.placeholder.com/150" alt="character portrait" />
             </Grid.Col>
             <Grid.Col span={12}>
                 <Grid>
@@ -80,10 +80,10 @@ function CharacterPane(){
             </Grid.Col>
             <Grid.Col  mt=".5rem" align="center" span={12}>
                 {/* <Button>Character Sheet</Button> */}
-                <Button onClick={patchHandler}>Save Character</Button>
+                <Button fullWidth="true" fz=".6rem" size="compact-sm" onClick={patchHandler}>Save Character</Button>
             </Grid.Col>
             <Grid.Col align="center" span={12}>
-                <Button onClick={postHandler}>Save As New Character</Button>
+                <Button fullWidth="true" fz=".6rem" size="compact-sm" onClick={postHandler}>Save As New Character</Button>
             </Grid.Col>
         </Grid>
     )

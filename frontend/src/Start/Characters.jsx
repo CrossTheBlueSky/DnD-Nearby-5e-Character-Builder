@@ -38,7 +38,7 @@ function Characters(){
         dispatch(setAbilityScoreChoice(character.abilityScores))
         dispatch(setBackgroundChoice(character.background))
         dispatch(setCharacterId(character._id))
-        console.log(character._id)
+        console.log(character)
         navigate('/build')
         
 

@@ -50,6 +50,13 @@ const AbilityScoreGenerator = () => {
     });
   };
 
+  function descriptionUpdate(){
+    const heading = '4d6 Drop Lowest'
+    const description = 'The 4d6 Drop Lowest method generates ability scores through dice rolls, adding randomness and potential for higher scores. For each ability score, roll four six-sided dice (4d6), remove the lowest die, and sum the remaining three. Repeat this process six times to determine the six ability scores.'
+    props.setHeading(heading)
+    props.setDescription(description)  
+  }
+
   return (
     <div>
       <h2>Ability Score Generator</h2>
@@ -61,7 +68,7 @@ const AbilityScoreGenerator = () => {
         ))}
       </div>
       <div>
-        <h3>Assign Stats to abilityScores</h3>
+        <h3>Assign Stats</h3>
         {Object.keys(abilityScores).map((ability) => (
           <div key={ability}>
             <span>{ability.charAt(0).toUpperCase() + ability.slice(1)}: </span>

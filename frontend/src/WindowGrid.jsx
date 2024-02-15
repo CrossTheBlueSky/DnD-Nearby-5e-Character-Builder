@@ -45,7 +45,7 @@ function WindowGrid(props){
 
     return (
         <Container  p="2.5rem" miw="90vw">
-        <Grid>
+        <Grid justify="flex-start" align="stretch">
             <Grid.Col span={3}><CharacterPane height={rem(400)}/></Grid.Col>
             <Grid.Col span={9}>
                 <Grid grow>

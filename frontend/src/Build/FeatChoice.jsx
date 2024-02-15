@@ -33,7 +33,18 @@ function FeatChoice(props){
 
     function descriptionPopulator(feat){
         props.setHeading(feat.name)
-        props.setDescription(feat.entries[0])
+        const description = feat.entries.map((entry) => {
+            if (entry.type === 'list'){
+                let keyBase = entry.name
+                let count = 0
+                const subDescription = entry.items.map((subEntry) => {
+                    count++
+                    return <p key={keyBase+ `${count}`}>{subEntry}</p>
+                })
+                return subDescription
+            }
+            return entry})
+        props.setDescription(description)
 
     }
 

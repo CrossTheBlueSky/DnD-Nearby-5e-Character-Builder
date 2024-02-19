@@ -1,16 +1,18 @@
 import {Container, Tabs} from '@mantine/core';
 import * as classes from '../Styles/tabs.modules.css';
-
+import {useNavigate} from 'react-router-dom';
 
 const tabs = [
     'Create New',
     'Load Existing',
 ]
 
-function ShopNav() {
+function StartNav() {
+
+    const navigate = useNavigate();
 
   const items = tabs.map((tab) => (
-    <Tabs.Tab value={tab} key={tab}>
+    <Tabs.Tab value={tab} key={tab} onClick={()=>navigate("/build")}>
       {tab}
     </Tabs.Tab>
   ));
@@ -18,7 +20,7 @@ function ShopNav() {
   return (
     <div className={classes.header}>
       <Container size="md">
-        <Tabs
+        <Tabs c="gray.5"
           defaultValue="Equipment"
           variant="outline"
           visibleFrom="sm"
@@ -35,4 +37,4 @@ function ShopNav() {
   );
 }
 
-export default ShopNav
+export default StartNav

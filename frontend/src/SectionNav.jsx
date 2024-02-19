@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Container, Group, Burger } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import * as classes from './Styles/SectionNav.modules.css';
-
+import { useNavigate } from 'react-router-dom';
 const links = [
   { link: '/', label: 'Start' },
   { link: '/build', label: 'Build' },
@@ -13,15 +13,17 @@ const links = [
 function SectionNav() {
   const [opened, { toggle }] = useDisclosure(false);
   const [active, setActive] = useState(links[0].link);
+  const navigate = useNavigate();
 
   const items = links.map((link) => (
-    <a
+    <a style={{color: '#BBCEA8'}}
       key={link.label}
       href={link.link}
       className={classes.link}
       data-active={active === link.link || undefined}
-      onClick={() => {
-        setActive(link.link);
+      onClick={(e) => {
+        e.preventDefault();
+        navigate(link.link);
       }}
     >
       {link.label}

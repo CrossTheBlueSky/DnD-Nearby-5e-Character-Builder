@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
@@ -11,6 +11,7 @@ import ShopPage from './Shop/ShopPage.jsx';
 function App() {
   const [message, setMessage] = useState('');
 
+
   useEffect(() => {
     axios.get('http://localhost:5000/')
       .then(response => setMessage(response.data))
@@ -19,7 +20,7 @@ function App() {
 
 
   return (
-    <MantineProvider defaultColorScheme="dark">
+    <MantineProvider>
 
     <Routes>
       <Route path="/" element={<StartPage />} />

@@ -24,8 +24,10 @@ function BuildNav() {
 
   return (
     <div className={classes.header}>
-      <Container size="md">
-        <Tabs
+      <Container bg="" mx="0" px="0" size="md">
+        <Tabs 
+          c="gray.5"
+          bg=""
           defaultValue="Class"
           variant="outline"
           visibleFrom="sm"

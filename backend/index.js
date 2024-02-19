@@ -1,5 +1,6 @@
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 const cors = require('cors');
 
 const app = express();
@@ -27,11 +28,7 @@ async function main() {
   // console.log(allClasses)
 }
 
-// All databases are variabilized here
 const database = client.db('builder')
-const classes = database.collection('classes')
-const races = database.collection('races')
-const backgrounds = database.collection('backgrounds')
 const spells = database.collection('spells')
 const feats = database.collection('feats')
 const optionalFeatures = database.collection('optional-features')
@@ -43,31 +40,44 @@ const items = database.collection('items')
 
 // Define a test route
 app.get('/', (req, res) => {
-  console.log("root get attempted")
-  res.send('Hello World from Backend!');
+  console.log("App is running")
 })
 
 app.get('/characters', (req, res) => {
-  res.send('Characters');
+  async function getAllCharacters() {
+    const characters = database.collection('characters');
+    const allCharacters = await characters.find().toArray();
+    return allCharacters;
+  }
+
+  getAllCharacters()
+  .then(characters => res.send(characters))
 })
 
-app.post('/characters', (req, res) => {
-  console.log(req.body);
-  res.send('Characters');
+app.get(`/characters/:id`, (req, res) => {
+  res.send('Specific Character')
 })
 
-app.patch('/characters', (req, res) => {
-  console.log(req.body);
-  res.send('Characters');
+app.post('/characters', async (req, res) => {
+
+  const newId = await characters.insertOne(req.body)
+  console.log(req.body)
+  res.send(newId);
 })
 
-app.delete('/characters/', (req, res) => {
-  console.log(req.body);
-  res.send('Characters');
+app.patch('/characters', async (req, res) => {
+  const id = new ObjectId(req.body.id.id)
+  const success = await characters.updateOne({_id: id}, {$set: req.body.patch})
+  console.log(success.matchedCount, success.modifiedCount)
+  res.send(success)
+})
+
+app.delete('/characters', async (req, res) => {
+  const deleted = await characters.deleteOne({id: req.body.id})
+  res.send(deleted);
 })
 
 app.get('/classes/', (req, res) => {
-  console.log("class get attempted")
   async function getAllClasses() {
     const classes = database.collection('classes');
     const allClasses = await classes.find().toArray();
@@ -78,8 +88,7 @@ app.get('/classes/', (req, res) => {
     .then(classes => {
       const classlist = []
       classes.forEach(c => {
-        console.log(c.class[0])
-      classlist.push(c.class[0])
+      classlist.push(c)
     })
     res.send(classlist)
   })
@@ -87,9 +96,65 @@ app.get('/classes/', (req, res) => {
 })
 
 app.get('/races', (req, res) => {
-  res.send('Races')
-})
+  async function getAllRaces(){
+    const races = database.collection('races')
+    const allRaces = await races.find().toArray()
+    return allRaces
+  }
 
+  getAllRaces()
+  .then(races =>{
+    const raceList = []
+    races.forEach(r => {
+      raceList.push(r)
+  })
+  res.send(raceList)
+})})
+
+app.get('/backgrounds', (req, res) => {
+  async function getAllBackgrounds(){
+    const backgrounds = database.collection('backgrounds')
+    const allBackgrounds = await backgrounds.find().toArray()
+    return allBackgrounds
+  }
+
+  getAllBackgrounds()
+  .then(backgrounds =>{
+    const backgroundList = []
+    backgrounds.forEach(b => {
+      backgroundList.push(b.background)
+  })
+  res.send(backgroundList)
+})})
+
+app.get('/skills', (req, res) => {
+  async function getAllSkills(){
+    const skills = database.collection('skills')
+    const allSkills = await skills.find().toArray()
+    return allSkills
+  }
+
+  getAllSkills()
+  .then(skills =>{
+    const skillList = []
+    skills.forEach(s => {
+      skillList.push(s.skill)
+  })
+  res.send(skillList)
+})})
+
+app.get('/feats', (req, res) => {
+  async function getAllFeats(){
+    const feats = database.collection('feats')
+    const allFeats = await feats.find().toArray()
+    return allFeats
+  }
+
+  getAllFeats()
+  .then(feats =>{
+    const featList = []
+    res.send(feats)
+})})
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 

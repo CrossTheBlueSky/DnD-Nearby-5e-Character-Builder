@@ -1,36 +1,71 @@
+import {Box, Container, Stack, rem, BackgroundImage} from '@mantine/core'
+import {useSelector} from 'react-redux'
 import React from 'react'
-import {Box, Container, Stack, rem} from '@mantine/core'
-import axios from 'axios'
-import ClassChoice from './ClassChoice.jsx'
 
-function BuildChoicePane(){
+function BuildChoicePane(props){
 
-    const [selectedTab, setSelectedTab] = React.useState("Class")
-    const [renderedTab, setRenderedTab] = React.useState(<ClassChoice/>)
+    const classChoice = useSelector((state) => state.class.class)
+    const raceChoice = useSelector((state) => state.race.race)
+    const backgroundChoice = useSelector((state) => state.background.background)
+    const skillChoice = useSelector((state) => state.skills.skills)
+    const featChoice = useSelector((state) => state.feats.feats)
+    const abilityScores = useSelector((state) => state.abilityScores.abilityScores)
+    let chosenScores = null
 
-    // if (selectedTab === "Class"){
+    React.useEffect(() => {
+    if(abilityScores !== undefined){
+        for (const [key, value] of Object.entries(abilityScores)) {
+            if(value !== null){
+                chosenScores = true
+            }else{
+                chosenScores = false
+            }
+        }
 
-
-    //     setRenderedTab(<ClassChoice/>)
-    
-    // }
-
+    }}, [abilityScores])
 
 
     return (
-        <Stack h={rem(500)}>
-                <Box h="70%" bg={{base: "gray.8"}}>
-                    <Container>
-                        {renderedTab}
-                    </Container>
-                </Box> 
+        <Stack gap="sm" h={rem(500)}>
 
-                <Box h="30%" bg={{base:"gray.6"}}>
+  
+            <BackgroundImage h="75%" style={{border : "solid black 2px"}}
+                        py="0" my="0"
+                        src="src/assets/old-rough-parchment-background.jpg" alt="old paper background" >
+                    
+                <Box h="100%" style={{overflow:"scroll"}}>
+
                     <Container>
-                    <h2>Build Checklist</h2>
-                    <p>Choice clickies go here</p>
+                        {props.tab}
+                    </Container>
+
+                </Box> 
+            </BackgroundImage>
+
+
+            <BackgroundImage h="25%"style={{border : "solid black 2px"}}
+                        py="0" my="0"
+                        src="src/assets/old-rough-parchment-background.jpg" alt="old paper background" >
+                <Box bottom h="100%" style={{overflow:"scroll"}} bg="transparent">
+                    <Container fz=".75rem" >
+                    <h4 style={{marginTop : ".5rem", marginBottom : ".5rem"}}>Build Checklist</h4>
+                    {classChoice || "Choose a class"}
+                    <br />
+                    {raceChoice || "Choose a race"}
+                    <br />
+                    {backgroundChoice ||"Choose a background"}
+                    <br />
+                    {chosenScores ?  "Ability scores chosen" : "Choose ability scores"}
+                    <br />
+                    {skillChoice[0] ?  skillChoice.length + " skills chosen" : "Choose skills"}
+                    <br />
+                    {featChoice.length + " feats chosen" || "Choose feats"}
+                    <br />
+
+
                     </Container>
                 </Box>
+            </BackgroundImage>
         </Stack>
     )
 }

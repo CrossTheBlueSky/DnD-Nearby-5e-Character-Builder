@@ -10,8 +10,7 @@ import ShopPage from './Shop/ShopPage.jsx';
 
 function App() {
   const [message, setMessage] = useState('');
-  const location = useLocation();
-  console.log(location.state)
+
 
   useEffect(() => {
     axios.get('http://localhost:5000/')
@@ -21,7 +20,7 @@ function App() {
 
 
   return (
-    <MantineProvider defaultColorScheme="dark">
+    <MantineProvider>
 
     <Routes>
       <Route path="/" element={<StartPage />} />

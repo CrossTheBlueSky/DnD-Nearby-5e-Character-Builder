@@ -9,6 +9,7 @@ import {setAbilityScoreChoice} from '../Build/abilityScoreChoiceSlice'
 import {setBackgroundChoice} from '../Build/backgroundChoiceSlice'
 import {setCharacterId} from '../currentCharacterIdSlice'
 import {useNavigate } from 'react-router-dom'
+import {Flex} from '@mantine/core'
 
 
 function Characters(){
@@ -60,9 +61,11 @@ function Characters(){
 
 
     return (
-        <div>
-            <h1>Characters</h1>
+        <div style={{margin:"0", padding:"0"}}>
+            <h3 style={{margin: "0", padding: "0"}}>Characters</h3>
+            <Flex left gap="md">
             {allCharacterCards}
+            </Flex>
         </div>
     )
     

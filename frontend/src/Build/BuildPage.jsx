@@ -44,7 +44,7 @@ function BuildPage(){
 
     return (
         <WindowGrid nav={<BuildNav/>} 
-        pane={<BuildChoicePane tab={renderedTab}/>} 
+        pane={<BuildChoicePane tab={renderedTab} bg="transparent"/>} 
 
         description={<DescriptionPane heading={heading} description={description}/>}
         />

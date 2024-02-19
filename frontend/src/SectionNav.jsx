@@ -16,7 +16,7 @@ function SectionNav() {
   const navigate = useNavigate();
 
   const items = links.map((link) => (
-    <a
+    <a style={{color: '#BBCEA8'}}
       key={link.label}
       href={link.link}
       className={classes.link}

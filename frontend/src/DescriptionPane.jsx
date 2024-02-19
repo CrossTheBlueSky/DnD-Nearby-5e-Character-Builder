@@ -5,7 +5,7 @@ function DescriptionPane(props){
 
 
         return(
-            <Box style={{overflow: "scroll"}} h="100%" bg="violet.9" className="description-pane">
+            <Box style={{overflow: "scroll"}} h="100%" bg="transparent" className="description-pane">
                 <h3>{props.heading}</h3>
                 
                     {props.description}

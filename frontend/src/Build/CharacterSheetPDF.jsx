@@ -2,6 +2,10 @@ import { PDFDocument } from 'pdf-lib'
 import { useRef } from 'react'
 import {useSelector} from 'react-redux'
 import React from 'react'
+import { Button } from '@mantine/core'
+
+let docUrl
+let pdfBytes
 
 function CharacterSheetPDF(){
 
@@ -218,17 +222,34 @@ ProficiencyField.setText('2')
 
 
 
-  const pdfBytes = await pdfDoc.save()
 
-  const docUrl = URL.createObjectURL(new Blob([pdfBytes], {type: 'application/pdf'}))
-  setPdfInfo(docUrl);
+pdfBytes = await pdfDoc.save()
+
+docUrl = URL.createObjectURL(new Blob([pdfBytes], {type: 'application/pdf'}))
+setPdfInfo(docUrl);
+  
 
 }
 
 
 
-  
-  return <iframe title="test" src={pdfInfo} ref={useRef(null)}type="application/pdf" />
+function downloadHandler(){
+  const link = document.createElement("a");
+  link.href = docUrl
+  link.download = "myFileName.pdf";
+  link.click();
+  }
+
+
+
+
+
+  return (
+    <Button variant="gradient"
+                    gradient={{ from: 'rgba(105, 1, 1, 1)', to: 'red', deg: 360 }}
+                    align="center" my="0" py="0" fz=".6rem" size="compact-sm" onClick={downloadHandler}>Save Character Sheet</Button>
+  )
+  // return <iframe title="test" src={pdfInfo} ref={useRef(null)}type="application/pdf" />
   // return <a href="./src/Build/DnD_5E_CharacterSheet_FormFillable.pdf" type="application/pdf" target="_blank">Download Character Sheet</a>
 }
 export default CharacterSheetPDF

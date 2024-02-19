@@ -1,4 +1,4 @@
-import {Box, Container, Stack, rem} from '@mantine/core'
+import {Box, Container, Stack, rem, BackgroundImage} from '@mantine/core'
 import {useSelector} from 'react-redux'
 import React from 'react'
 
@@ -26,14 +26,27 @@ function BuildChoicePane(props){
 
 
     return (
-        <Stack h={rem(675)}>
-                <Box h="75%" style={{overflow:"scroll"}} bg={{base: "gray.8"}}>
-                    <Container fluid>
+        <Stack gap="sm" h={rem(500)}>
+
+  
+            <BackgroundImage h="75%" style={{border : "solid black 2px"}}
+                        py="0" my="0"
+                        src="src/assets/old-rough-parchment-background.jpg" alt="old paper background" >
+                    
+                <Box h="100%" style={{overflow:"scroll"}}>
+
+                    <Container>
                         {props.tab}
                     </Container>
-                </Box> 
 
-                <Box bottom h="25%" style={{overflow:"scroll"}} bg={{base:"gray.6"}}>
+                </Box> 
+            </BackgroundImage>
+
+
+            <BackgroundImage h="25%"style={{border : "solid black 2px"}}
+                        py="0" my="0"
+                        src="src/assets/old-rough-parchment-background.jpg" alt="old paper background" >
+                <Box bottom h="100%" style={{overflow:"scroll"}} bg="transparent">
                     <Container fz=".75rem" >
                     <h4 style={{marginTop : ".5rem", marginBottom : ".5rem"}}>Build Checklist</h4>
                     {classChoice || "Choose a class"}
@@ -52,6 +65,7 @@ function BuildChoicePane(props){
 
                     </Container>
                 </Box>
+            </BackgroundImage>
         </Stack>
     )
 }

@@ -1,4 +1,4 @@
-import {Grid, Container, rem} from '@mantine/core'
+import {Grid, Container, rem, BackgroundImage} from '@mantine/core'
 import SectionNav from './SectionNav.jsx'
 import CharacterPane from './CharacterPane.jsx'
 import DescriptionPane from './DescriptionPane.jsx'
@@ -11,6 +11,7 @@ import {setAllBackgroundData} from './Build/allBackgroundSlice'
 import {setAllSkillData} from './Build/allSkillSlice'
 import {setAllFeatData} from './Build/allFeatSlice'
 import CharacterSheetPDF from './Build/CharacterSheetPDF.jsx'
+import './WindowGrid.css'
 
 function WindowGrid(props){
 
@@ -44,27 +45,58 @@ function WindowGrid(props){
 
 
     return (
-        <Container  p="2.5rem" miw="90vw">
-        <Grid justify="flex-start" align="stretch">
-            <Grid.Col span={3}><CharacterPane height={rem(400)}/></Grid.Col>
+        <>
+        <Container px=".5rem" py="1rem" miw="95vw" bg="#8797AF">
+
+        <Grid bg="#3D080B" justify="flex-start" m="0" px="1rem" align="stretch">
+            {/* <Grid.Col my="0" py="0" span={3}>
+                <div className="logo">
+                <img style={{height: "50%", margin: "0", padding: "0"}} src="src/assets/D&D.png" alt="D&D" />
+                <br/>
+                <img style={{height: "25%", margin: "0", padding: "0"}}  src="src/assets/Nearby.png" alt="Nearby"  />
+                </div>
+            </Grid.Col>
+            <Grid.Col my="0" py="0" span={9} /> */}
+            <Grid.Col py="1.5rem" span={3}>
+                <Grid>
+            <BackgroundImage style={{border : "solid black 2px"}}
+            py="0" my="0"
+            src="src/assets/old-rough-parchment-background.jpg" alt="old paper background" >
+            <Grid.Col  py="0rem" my="0" span={12}>
+                <CharacterPane/>
+
+                </Grid.Col>
+                </BackgroundImage>
+                </Grid>
+            </Grid.Col>
             <Grid.Col span={9}>
                 <Grid grow>
                     <Grid.Col span={12}>
-                        <SectionNav height={rem(80)} />
+                        <SectionNav height={rem(80)} py="0" my="0"/>
                         {props.nav}
                     </Grid.Col>
-                    <Grid.Col span={5}> 
-                    <div style={{marginTop: "1.15rem"}}>
-                    {props.pane}
-                    </div>
-                     </Grid.Col>
-                    <Grid.Col h={rem(400)} span={2}>{props.description}</Grid.Col>
+                    <Grid.Col  span={5}>
+                        <div>
+                        {props.pane}
+                        </div>
+                    </Grid.Col>
+                    <Grid.Col span={2}>
+                    <BackgroundImage style={{border : "solid black 2px"}}
+                        py="0" my="0"
+                        src="src/assets/old-rough-parchment-background.jpg" alt="old paper background" >
+                    <Grid.Col  h={rem(400)} span={12}>{props.description}</Grid.Col>
+                    </BackgroundImage>
+                    </Grid.Col>
                 </Grid>
             </Grid.Col>
+
         </Grid>
-        <CharacterSheetPDF />
 
         </Container>
+        <Container w="80vh">
+        {/* <CharacterSheetPDF style={{width: "100%"}} /> */}
+        </Container>
+        </>
     )
 
 }

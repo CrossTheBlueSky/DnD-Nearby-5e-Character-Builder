@@ -61,6 +61,7 @@ app.get(`/characters/:id`, (req, res) => {
 app.post('/characters', async (req, res) => {
 
   const newId = await characters.insertOne(req.body)
+  console.log(req.body)
   res.send(newId);
 })
 

@@ -20,7 +20,8 @@ export function ManageNav() {
     <div className={classes.header}>
       <Container size="md">
         <Tabs
-          defaultValue="Start"
+          c="gray.5"
+          defaultValue="Details"
           variant="outline"
           visibleFrom="sm"
           classNames={{

@@ -100,7 +100,7 @@ function CharacterPane(props){
                     align="center" my="0" py="0" fz=".6rem" size="compact-sm" onClick={postHandler}>Save As New Character</Button>
 
 
-                <CharacterSheetPDF />
+                {/* <CharacterSheetPDF /> */}
 
                     </Stack>
 

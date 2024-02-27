@@ -15,6 +15,7 @@ function CharacterSheetPDF(){
   const characterClass = useSelector((state) => state.class.class)
   const feats = useSelector((state) => state.feats.feats)
   const skills = useSelector((state) => state.skills.skills)
+  const details = useSelector((state) => state.details.details)
 
   const [pdfInfo, setPdfInfo] = React.useState(null)
 
@@ -244,12 +245,12 @@ function downloadHandler(){
 
 
 
-  return (
-    <Button variant="gradient"
-                    gradient={{ from: 'rgba(105, 1, 1, 1)', to: 'red', deg: 360 }}
-                    align="center" my="0" py="0" fz=".6rem" size="compact-sm" onClick={downloadHandler}>Save Character Sheet</Button>
-  )
-  // return <iframe title="test" src={pdfInfo} ref={useRef(null)}type="application/pdf" />
+  // return (
+  //   <Button variant="gradient"
+  //                   gradient={{ from: 'rgba(105, 1, 1, 1)', to: 'red', deg: 360 }}
+  //                   align="center" my="0" py="0" fz=".6rem" size="compact-sm" onClick={downloadHandler}>Save Character Sheet</Button>
+  // )
+  return <iframe title="test" src={pdfInfo} ref={useRef(null)}type="application/pdf" />
   // return <a href="./src/Build/DnD_5E_CharacterSheet_FormFillable.pdf" type="application/pdf" target="_blank">Download Character Sheet</a>
 }
 export default CharacterSheetPDF

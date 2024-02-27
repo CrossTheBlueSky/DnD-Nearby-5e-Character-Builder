@@ -12,7 +12,8 @@ import featReducer from '../Build/featChoiceSlice'
 import skillReducer from '../Build/skillChoiceSlice'
 import abilityScoreReducer from '../Build/abilityScoreChoiceSlice'
 import currentCharacterIdReducer from '../currentCharacterIdSlice'
-
+import manageTabReducer from '../Manage/manageTabSlice'
+import detailsReducer from '../Manage/detailsSlice'
 
 export default configureStore({
   reducer: {
@@ -29,6 +30,8 @@ export default configureStore({
     skills: skillReducer,
     abilityScores: abilityScoreReducer,
     characterId: currentCharacterIdReducer,
+    manageTab: manageTabReducer,
+    details : detailsReducer,
     
 
 

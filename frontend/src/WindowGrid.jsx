@@ -94,7 +94,7 @@ function WindowGrid(props){
 
         </Container>
         <Container w="80vh">
-        {/* <CharacterSheetPDF style={{width: "100%"}} /> */}
+        <CharacterSheetPDF style={{width: "100%"}} />
         </Container>
         </>
     )

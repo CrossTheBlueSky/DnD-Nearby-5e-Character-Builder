@@ -18,18 +18,36 @@ function DetailsTab(){
 
     return (
         <>
-        <Container  align="center">
+        <Container fz=".75rem" justify="left">
             <h5 style={{margin: ".25rem"}}>Character Details</h5>
             <form onChange={changeHandler}>
-            <input type="text" name="name" placeholder="Character Name" />
-            <input type="text" name="gender" placeholder="Gender" />
+            <label htmlFor="name">Character Name: </label>
+            <input size="20" type="text" name="name" placeholder="Character Name" />
+            <br/>
+            <label htmlFor="age">Age: </label>
             <input type="text" name="age" placeholder="Age" />
+            <br/>
+            <label htmlFor="height">Height: </label>
             <input type="text" name="height" placeholder="Height" />
+            <br/>
+            <label htmlFor="weight">Weight: </label>
             <input type="text" name="weight" placeholder="Weight" />
+            <br/>
+            <label htmlFor="alignment">Alignment: </label>
             <input type="text" name="alignment" placeholder="Alignment" />
-            <input type="text" name="deity" placeholder="Deity (if any)" />
-            <input type="text" name="company" placeholder="Adventuring Company" />
+            <br/>
+            <label htmlFor="player">Player Name: </label>
             <input type="text" name="player" placeholder="Player Name" />
+            <br/>
+            <label htmlFor="eyes">Eye Color: </label>
+            <input type="text" name="eyes" placeholder="Eye Color" />
+            <br/>
+            <label htmlFor="hair">Hair Color: </label>
+            <input type="text" name="hair" placeholder="Hair Color" />
+            <br/>
+            <label htmlFor="skin">Skin Color: </label>
+            <input type="text" name="skin" placeholder="Skin Color" />
+            <br/>
             </form>
         </Container>
         </>

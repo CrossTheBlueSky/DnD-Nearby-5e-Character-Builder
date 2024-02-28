@@ -70,7 +70,7 @@ const DexMod = form.getTextField('DEXmod ')
 const ConField = form.getTextField('CON')
 const ConMod = form.getTextField('CONmod')
 
-//Character Info Fields
+//Character Info and Detail Fields
 const NameField1 = form.getTextField('CharacterName')
 const BackgroundField = form.getTextField('Background')
 const RaceField = form.getTextField('Race ')
@@ -79,6 +79,13 @@ const ProficiencyField = form.getTextField('ProfBonus')
 const AlignmentField = form.getTextField('Alignment')
 const ExperienceField = form.getTextField('XP')
 const PlayerNameField = form.getTextField('PlayerName')
+const AgeField = form.getTextField('Age')
+const HeightField = form.getTextField('Height')
+const WeightField = form.getTextField('Weight')
+const EyesField = form.getTextField('Eyes')
+const SkinField = form.getTextField('Skin')
+const HairField = form.getTextField('Hair')
+
 
 //Saving Throw Fields
 const StrSaveField = form.getTextField('ST Strength')
@@ -184,9 +191,16 @@ WHERE IS STRENGTH SAVE?!?!?!
 // CheckBoxTest.check()
 
 //Fill in Character Info
-AlignmentField.setText('Neutral')
+AlignmentField.setText(details.alignment)
 ExperienceField.setText('250')
-PlayerNameField.setText('Test Player')
+PlayerNameField.setText(details.player)
+AgeField.setText(details.age)
+HeightField.setText(details.height)
+WeightField.setText(details.weight)
+EyesField.setText(details.eyes)
+SkinField.setText(details.skin)
+HairField.setText(details.hair)
+
 
 
 //Fill in Ability Scores
@@ -214,7 +228,7 @@ ConMod.setText(`${findModifier(abilityScores.constitution)}`)
 
 
 
-NameField1.setText('Test Character')
+NameField1.setText(details.name)
 BackgroundField.setText(`${background}`)
 RaceField.setText(`${race}`)
 ClassField.setText(`${characterClass} 1`)

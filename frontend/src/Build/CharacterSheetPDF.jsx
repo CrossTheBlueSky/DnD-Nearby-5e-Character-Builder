@@ -16,12 +16,14 @@ function CharacterSheetPDF(){
   const feats = useSelector((state) => state.feats.feats)
   const skills = useSelector((state) => state.skills.skills)
   const details = useSelector((state) => state.details.details)
+  const selectedClassDetails = useSelector((state) => state.allClassData.classes.filter((classOption) => classOption.class[0].name === characterClass))
+  
 
   const [pdfInfo, setPdfInfo] = React.useState(null)
 
   React.useEffect(() => {
     fillForm()
-  },[abilityScores])
+  },[abilityScores, characterClass])
 
 
 
@@ -98,12 +100,18 @@ const ChaSaveField = form.getTextField('ST Charisma')
 
 //Saving Throw Proficiency Fields
 
-// AC, Initiative, Speed
+// AC, Initiative, Speed, HP
+const MaxHPField = form.getTextField('HPMax')
 const AcField = form.getTextField('AC')
 const InitiativeField = form.getTextField('Initiative')
 const SpeedField = form.getTextField('Speed')
 
-//Filling AC, Initiative, Speed
+//Filling AC, Initiative, Speed, HP
+
+console.log(selectedClassDetails[0].class[0].hd.faces)
+console.log(findModifier(abilityScores.constitution))
+const healthVal = selectedClassDetails[0].class[0].hd.faces + findModifier(abilityScores.constitution)
+MaxHPField.setText(`${healthVal}`)
 AcField.setText(`${10 + findModifier(abilityScores.dexterity)}`)
 InitiativeField.setText(`${findModifier(abilityScores.dexterity)}`)
 SpeedField.setText('30')
@@ -175,6 +183,7 @@ skills.forEach(fillSkills, true)
 //Testing all the checkboxes (BRUUUUUUUH)
 
 /*~~~~~~~~~~~~~CHECKBOX KEY~~~~~~~~~~~~~~~
+Check Box 11: Str Save Proficiency
 Check Box 12-14: Death Save Successes
 Check Box 15-17: Death Save Failures
 Check Box 18: Dex Save Proficiency
@@ -182,15 +191,36 @@ Check Box 19: Con Save Proficiency
 Check Box 20: Int Save Proficiency
 Check Box 21: Wis Save Proficiency
 Check Box 22: Cha Save Proficiency
-WHERE IS STRENGTH SAVE?!?!?!
+
+Check Box 23: Acrobatics Proficiency
+Check Box 24: Animal Handling Proficiency
+Check Box 25: Arcana Proficiency
+Check Box 26: Athletics Proficiency
+Check Box 27: Deception Proficiency
+Check Box 28: History Proficiency
+Check Box 29: Insight Proficiency
+Check Box 30: Intimidation Proficiency
+Check Box 31: Investigation Proficiency
+Check Box 32: Medicine Proficiency
+Check Box 33: Nature Proficiency
+Check Box 34: Perception Proficiency
+Check Box 35: Performance Proficiency
+Check Box 36: Persuasion Proficiency
+Check Box 37: Religion Proficiency
+Check Box 38: Sleight of Hand Proficiency
+Check Box 39: Stealth Proficiency
+Check Box 40: Survival Proficiency
+
 */
 
 
 //Checkbox Testing
-// const CheckBoxTest = form.getCheckBox('Check Box 2')
+// const CheckBoxTest = form.getCheckBox('Check Box 11')
 // CheckBoxTest.check()
 
 //Fill in Character Info
+if(details){
+NameField1.setText(details.name)
 AlignmentField.setText(details.alignment)
 ExperienceField.setText('250')
 PlayerNameField.setText(details.player)
@@ -200,7 +230,7 @@ WeightField.setText(details.weight)
 EyesField.setText(details.eyes)
 SkinField.setText(details.skin)
 HairField.setText(details.hair)
-
+}
 
 
 //Fill in Ability Scores
@@ -228,7 +258,7 @@ ConMod.setText(`${findModifier(abilityScores.constitution)}`)
 
 
 
-NameField1.setText(details.name)
+
 BackgroundField.setText(`${background}`)
 RaceField.setText(`${race}`)
 ClassField.setText(`${characterClass} 1`)

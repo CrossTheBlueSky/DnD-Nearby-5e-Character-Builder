@@ -20,7 +20,13 @@ function RaceChoice(props){
         }
     })
   
-    const noNPC = [...noNPCMain, ...subraceData]
+    const raceArr1 = [...noNPCMain, ...subraceData]
+    const noNPC = raceArr1.filter((race)=>{
+        if(race.speed){
+            return race
+        }
+    })
+
     noNPC.sort((a, b) => ((a.raceName || a.name) > (b.raceName || b.name)) ? 1 : -1)
 
     function abilityBonuses(ability){
@@ -59,6 +65,7 @@ function RaceChoice(props){
                     </Box>
                 )})
             props.setDescription(description)
+            raceOption.speed ? console.log(raceOption.speed) : console.log("no speed")
             return (<Grid key={raceOption.raceName + raceOption.page + raceOption.source + raceOption.name} >
                 <Grid.Col span={4} >
                     <input type="radio" id={raceOption.name} name="race-choice" value={raceOption.name + " (" + raceOption.source + ")"} defaultChecked/>
@@ -95,16 +102,14 @@ function RaceChoice(props){
     //         }
 
     //     }
-
     // }
 
     function changeHandler(){
        const chosenRace = document.querySelector('input[name="race-choice"]:checked').value
        const chosenId = document.querySelector('input[name="race-choice"]:checked').id
-       console.log(chosenId)
-       console.log(chosenRace)
 
        dispatch(setRaceChoice(chosenRace))
+
        props.setHeading(chosenRace)
  
     }

@@ -10,7 +10,7 @@ function BuildChoicePane(props){
     const skillChoice = useSelector((state) => state.skills.skills)
     const featChoice = useSelector((state) => state.feats.feats)
     const abilityScores = useSelector((state) => state.abilityScores.abilityScores)
-    let chosenScores = null
+    let chosenScores = true
 
     React.useEffect(() => {
     if(abilityScores !== undefined){

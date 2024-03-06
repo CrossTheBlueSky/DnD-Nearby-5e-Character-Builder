@@ -47,14 +47,21 @@ function ClassChoice(props){
     }
 
     function descriptionHandler(describedClass){
+            const hitDie = <div>
+                <p><strong>Hit Die: d{describedClass[0].class[0].hd.faces}</strong></p>
+            </div>
+
         if (describedClass[0]){
             //Artificer has a different fluff array than the other classes. It's the ONLY ONE THAT DOES THIS
             if(describedClass[0].class[0].name === "Artificer"){
-            props.setDescription(<>{describedClass[0].class[0].fluff[0].entries[0]}<br/><Button onClick={open}>Class Features</Button></>)
+            props.setDescription(<>{
+                hitDie}{
+                describedClass[0].class[0].fluff[0].entries[0]
+                }<br/><Button onClick={open}>Class Features</Button></>)
             props.setHeading(describedClass[0].class[0].name)
             featuresPopulate(describedClass)
             }else{
-                props.setDescription(<>{describedClass[0].class[0].fluff[1].entries[1]}<br/><Button onClick={open}>Class Features</Button></>)
+                props.setDescription(<>{hitDie}{describedClass[0].class[0].fluff[1].entries[1]}<br/><Button onClick={open}>Class Features</Button></>)
                 props.setHeading(describedClass[0].class[0].name)
                 featuresPopulate(describedClass)
             }}

@@ -15,6 +15,7 @@ function ClassChoice(props){
     const classChoice = useSelector((state) => state.class.class)
     const [features, setFeatures] = useState([])
     const [opened, { open, close }] = useDisclosure(false);
+    const [followups, setFollowups] = useState([])
     React.useEffect(() => {
         if(props.setDescription){
         descriptionHandler(classData.filter((classOption) => classOption.class[0].name === classChoice))}}, [])
@@ -64,7 +65,9 @@ function ClassChoice(props){
                 props.setDescription(<>{hitDie}{describedClass[0].class[0].fluff[1].entries[1]}<br/><Button onClick={open}>Class Features</Button></>)
                 props.setHeading(describedClass[0].class[0].name)
                 featuresPopulate(describedClass)
-            }}
+            }
+            followupChoices(describedClass)
+        }
 
 
     }
@@ -87,6 +90,28 @@ function ClassChoice(props){
     }
 
 
+    function followupChoices(chosenClass){
+        const equipmentChoices = chosenClass[0].class[0].startingEquipment
+        const proficiencyChoices = chosenClass[0].class[0].startingProficiencies
+
+        console.log(equipmentChoices)
+        console.log(proficiencyChoices)
+
+        const equipFollow = equipmentChoices.default.map((choice) => {
+            return (
+                <div key = {choice}>
+                    <input type="radio" id={choice} name="equipment-choice" value={choice}/>
+                    <label htmlFor={choice}>{choice}</label>
+                </div>
+
+            )})
+
+        setFollowups(<fieldset>
+                        {equipFollow}
+                    </fieldset>)
+    }
+
+
         return (
             <>
             <form onChange={changeHandler}>
@@ -95,10 +120,11 @@ function ClassChoice(props){
                 <Flex justify = "flex-start" wrap="wrap">
                   {allClassOptions}
                 </Flex>
-                <div>
-                {/* <button type="submit">Submit</button> */}
-                </div>
             </fieldset>
+                <legend>Select Starting Equipment:</legend>
+                <Flex justify="flex-start" wrap="wrap">
+                    {followups}
+                </Flex>
             </form>
             <Modal opened={opened} h={600} onClose={close} title="Class Features" centered scrollAreaComponent={ScrollArea.Autosize}>
                     {features}              

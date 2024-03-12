@@ -96,15 +96,32 @@ function ClassChoice(props){
 
         console.log(equipmentChoices)
         console.log(proficiencyChoices)
+        let equipChoiceCount = 0
 
         const equipFollow = equipmentChoices.default.map((choice) => {
+            const option1= choice.split(" or ")[0]
+            const option2= choice.split(" or ")[1]
+ 
+            if(option1 && !option2){
             return (
-                <div key = {choice}>
-                    <input type="radio" id={choice} name="equipment-choice" value={choice}/>
-                    <label htmlFor={choice}>{choice}</label>
+                <div key={choice}>
+                    {choice}
+                </div>
+            )}else if (option2){
+                equipChoiceCount++
+            return (
+                <div key={choice}>
+                <div>
+                    <input type="radio" id={option1} name={"equipment-choice"+equipChoiceCount} value={option1}/>
+                    <label htmlFor={option1}>{option1 + " "}</label>
+                    or
+                    <input type="radio" id={option2} name={"equipment-choice"+equipChoiceCount} value={option2}/>
+                    <label htmlFor={option2}>{" "+ option2}</label>
+                </div>
                 </div>
 
-            )})
+            )}
+            })
 
         setFollowups(<fieldset>
                         {equipFollow}

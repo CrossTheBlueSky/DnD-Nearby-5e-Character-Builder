@@ -1,6 +1,7 @@
 
 import {clampUseMovePosition, useDisclosure} from '@mantine/hooks'
 import {Flex, Modal, Button, ScrollArea} from '@mantine/core'
+import {useToggle} from '@mantine/hooks'
 import {useSelector, useDispatch} from 'react-redux'
 import {setClassChoice} from './classChoiceSlice'
 import React, {useState, useEffect} from 'react'
@@ -13,9 +14,12 @@ function ClassChoice(props){
     const dispatch = useDispatch()
     const classData = useSelector((state) => state.allClassData.classes)
     const classChoice = useSelector((state) => state.class.class)
+    const currentClass = classData.filter((classOption) => classOption.class[0].name === classChoice)
     const [features, setFeatures] = useState([])
     const [opened, { open, close }] = useDisclosure(false);
     const [followups, setFollowups] = useState([])
+    const [value, toggle] = useToggle(['blue', 'goldenrod'])
+
     React.useEffect(() => {
         if(props.setDescription){
         descriptionHandler(classData.filter((classOption) => classOption.class[0].name === classChoice))}}, [])
@@ -66,7 +70,6 @@ function ClassChoice(props){
                 props.setHeading(describedClass[0].class[0].name)
                 featuresPopulate(describedClass)
             }
-            followupChoices(describedClass)
         }
 
 
@@ -90,44 +93,59 @@ function ClassChoice(props){
     }
 
 
-    function followupChoices(chosenClass){
-        const equipmentChoices = chosenClass[0].class[0].startingEquipment
-        const proficiencyChoices = chosenClass[0].class[0].startingProficiencies
+    function followupChoices(){
+        const equipmentChoices = currentClass[0].class[0].startingEquipment
+        const proficiencyChoices = currentClass[0].class[0].startingProficiencies
 
-        console.log(equipmentChoices)
         console.log(proficiencyChoices)
+        console.log(equipmentChoices.goldAlternative)
         let equipChoiceCount = 0
 
         const equipFollow = equipmentChoices.default.map((choice) => {
             const option1= choice.split(" or ")[0]
             const option2= choice.split(" or ")[1]
  
-            if(option1 && !option2){
-            return (
-                <div key={choice}>
-                    {choice}
-                </div>
-            )}else if (option2){
-                equipChoiceCount++
-            return (
-                <div key={choice}>
-                <div>
-                    <input type="radio" id={option1} name={"equipment-choice"+equipChoiceCount} value={option1}/>
-                    <label htmlFor={option1}>{option1 + " "}</label>
-                    or
-                    <input type="radio" id={option2} name={"equipment-choice"+equipChoiceCount} value={option2}/>
-                    <label htmlFor={option2}>{" "+ option2}</label>
-                </div>
-                </div>
+                if(option1 && !option2){
+                return (
+                    <div key={choice}>
+                        {choice}
+                    </div>
+                )}else if (option2){
+                    equipChoiceCount++
+                return (
+                    <div key={choice} style={{margin: ".3rem 0"}}>
+                        <input type="radio" id={option1} name={"equipment-choice"+equipChoiceCount} value={option1}/>
+                        <label htmlFor={option1}>{option1 + " "}</label>
+                        <strong>or</strong>
+                        <input type="radio" id={option2} name={"equipment-choice"+equipChoiceCount} value={option2}/>
+                        <label htmlFor={option2}>{" "+ option2}</label>
+                    </div>
 
-            )}
-            })
+                )}}
+                )
 
-        setFollowups(<fieldset>
-                        {equipFollow}
-                    </fieldset>)
+        
+
+        if(value === 'goldenrod'){
+        setFollowups(<>
+
+            <fieldset>
+                <legend>Select Starting Equipment:</legend>
+                
+                <Flex justify="flex-start" wrap="wrap">
+                    {equipFollow}
+                </Flex>
+            </fieldset>
+                    </>)} else{
+                        setFollowups(<>
+                            <fieldset>
+                                <legend>Starting Gold:</legend>
+                                <p>{equipmentChoices.goldAlternative}</p>
+                            </fieldset>
+                        </>)}
     }
 
+    
 
         return (
             <>
@@ -138,10 +156,19 @@ function ClassChoice(props){
                   {allClassOptions}
                 </Flex>
             </fieldset>
-                <legend>Select Starting Equipment:</legend>
-                <Flex justify="flex-start" wrap="wrap">
-                    {followups}
-                </Flex>
+
+            {classChoice && <div>Start with <Button color={value} onClick={() => {
+                toggle()
+                followupChoices()
+                }}>
+            {value === 'blue' ? 'Equipment' : 'Gold'}
+             </Button>
+                {classChoice && followups}
+             </div>
+             
+             }
+            {/* {followups} */}
+
             </form>
             <Modal opened={opened} h={600} onClose={close} title="Class Features" centered scrollAreaComponent={ScrollArea.Autosize}>
                     {features}              

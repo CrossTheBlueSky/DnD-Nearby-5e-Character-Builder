@@ -2,7 +2,7 @@ import {Box, Container, Stack, rem, BackgroundImage} from '@mantine/core'
 import {useSelector} from 'react-redux'
 import React from 'react'
 
-function BuildChoicePane(props){
+function ManageChoicePane(props){
 
     const classChoice = useSelector((state) => state.class.class)
     const raceChoice = useSelector((state) => state.race.race)
@@ -10,7 +10,7 @@ function BuildChoicePane(props){
     const skillChoice = useSelector((state) => state.skills.skills)
     const featChoice = useSelector((state) => state.feats.feats)
     const abilityScores = useSelector((state) => state.abilityScores.abilityScores)
-    let chosenScores = true
+    let chosenScores = null
 
     React.useEffect(() => {
     if(abilityScores !== undefined){
@@ -70,4 +70,4 @@ function BuildChoicePane(props){
     )
 }
 
-export default BuildChoicePane
+export default ManageChoicePane

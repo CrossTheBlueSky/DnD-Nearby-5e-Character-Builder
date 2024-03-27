@@ -15,12 +15,16 @@ function CharacterSheetPDF(){
   const characterClass = useSelector((state) => state.class.class)
   const feats = useSelector((state) => state.feats.feats)
   const skills = useSelector((state) => state.skills.skills)
+  const details = useSelector((state) => state.details.details)
+  const selectedClassDetails = useSelector((state) => state.allClassData.classes.filter((classOption) => classOption.class[0].name === characterClass))
+  const profValue = 2
+  // const profValue = Math.ceil(level/4) + 1
 
   const [pdfInfo, setPdfInfo] = React.useState(null)
 
   React.useEffect(() => {
     fillForm()
-  },[abilityScores])
+  },[abilityScores, characterClass])
 
 
 
@@ -69,7 +73,7 @@ const DexMod = form.getTextField('DEXmod ')
 const ConField = form.getTextField('CON')
 const ConMod = form.getTextField('CONmod')
 
-//Character Info Fields
+//Character Info and Detail Fields
 const NameField1 = form.getTextField('CharacterName')
 const BackgroundField = form.getTextField('Background')
 const RaceField = form.getTextField('Race ')
@@ -78,6 +82,12 @@ const ProficiencyField = form.getTextField('ProfBonus')
 const AlignmentField = form.getTextField('Alignment')
 const ExperienceField = form.getTextField('XP')
 const PlayerNameField = form.getTextField('PlayerName')
+const AgeField = form.getTextField('Age')
+const HeightField = form.getTextField('Height')
+const WeightField = form.getTextField('Weight')
+const EyesField = form.getTextField('Eyes')
+const SkinField = form.getTextField('Skin')
+const HairField = form.getTextField('Hair')
 
 //Saving Throw Fields
 const StrSaveField = form.getTextField('ST Strength')
@@ -87,15 +97,64 @@ const IntSaveField = form.getTextField('ST Intelligence')
 const WisSaveField = form.getTextField('ST Wisdom')
 const ChaSaveField = form.getTextField('ST Charisma')
 
+//Filling Saving Throw Fields
+
+StrSaveField.setText(`${findModifier(abilityScores.strength)}`)
+DexSaveField.setText(`${findModifier(abilityScores.dexterity)}`)
+ConSaveField.setText(`${findModifier(abilityScores.constitution)}`)
+IntSaveField.setText(`${findModifier(abilityScores.intelligence)}`)
+WisSaveField.setText(`${findModifier(abilityScores.wisdom)}`)
+ChaSaveField.setText(`${findModifier(abilityScores.charisma)}`)
+
+
 
 //Saving Throw Proficiency Fields
+const StrSaveCheck = form.getCheckBox('Check Box 11')
+const DexSaveCheck = form.getCheckBox('Check Box 18')
+const ConSaveCheck = form.getCheckBox('Check Box 19')
+const IntSaveCheck = form.getCheckBox('Check Box 20')
+const WisSaveCheck = form.getCheckBox('Check Box 21')
+const ChaSaveCheck = form.getCheckBox('Check Box 22')
 
-// AC, Initiative, Speed
+//Filling Saving Throw Proficiency Checkboxes
+
+selectedClassDetails[0].class[0].proficiency.forEach((prof) => {
+  if(prof === 'str'){
+    StrSaveCheck.check()
+    StrSaveField.setText(`${parseInt(StrSaveField.getText())+profValue}`)
+  } else if(prof === 'dex'){
+    DexSaveCheck.check()
+    DexSaveField.setText(`${parseInt(DexSaveField.getText())+profValue}`)
+  } else if(prof === 'con'){
+    ConSaveCheck.check()
+    ConSaveField.setText(`${parseInt(ConSaveField.getText())+profValue}`)
+  } else if(prof === 'int'){
+    IntSaveCheck.check()
+    IntSaveField.setText(`${parseInt(IntSaveField.getText())+profValue}`)
+  } else if(prof === 'wis'){
+    WisSaveCheck.check()
+    WisSaveField.setText(`${parseInt(WisSaveField.getText())+profValue}`)
+  } else if(prof === 'cha'){
+    ChaSaveCheck.check()
+    ChaSaveField.setText(`${parseInt(ChaSaveField.getText())+profValue}`)
+  }})
+
+
+
+// AC, Initiative, Speed, HP
+const MaxHPField = form.getTextField('HPMax')
+const HitDiceField = form.getTextField('HD')
 const AcField = form.getTextField('AC')
 const InitiativeField = form.getTextField('Initiative')
 const SpeedField = form.getTextField('Speed')
 
-//Filling AC, Initiative, Speed
+//Filling AC, Initiative, Speed, HP
+
+console.log(selectedClassDetails[0].class[0].hd.faces)
+console.log(findModifier(abilityScores.constitution))
+const healthVal = selectedClassDetails[0].class[0].hd.faces + findModifier(abilityScores.constitution)
+HitDiceField.setText(`${selectedClassDetails[0].class[0].hd.faces}`)
+MaxHPField.setText(`${healthVal}`)
 AcField.setText(`${10 + findModifier(abilityScores.dexterity)}`)
 InitiativeField.setText(`${findModifier(abilityScores.dexterity)}`)
 SpeedField.setText('30')
@@ -167,6 +226,7 @@ skills.forEach(fillSkills, true)
 //Testing all the checkboxes (BRUUUUUUUH)
 
 /*~~~~~~~~~~~~~CHECKBOX KEY~~~~~~~~~~~~~~~
+Check Box 11: Str Save Proficiency
 Check Box 12-14: Death Save Successes
 Check Box 15-17: Death Save Failures
 Check Box 18: Dex Save Proficiency
@@ -174,18 +234,47 @@ Check Box 19: Con Save Proficiency
 Check Box 20: Int Save Proficiency
 Check Box 21: Wis Save Proficiency
 Check Box 22: Cha Save Proficiency
-WHERE IS STRENGTH SAVE?!?!?!
+
+
+Check Box 23: Acrobatics Proficiency
+Check Box 24: Animal Handling Proficiency
+Check Box 25: Arcana Proficiency
+Check Box 26: Athletics Proficiency
+Check Box 27: Deception Proficiency
+Check Box 28: History Proficiency
+Check Box 29: Insight Proficiency
+Check Box 30: Intimidation Proficiency
+Check Box 31: Investigation Proficiency
+Check Box 32: Medicine Proficiency
+Check Box 33: Nature Proficiency
+Check Box 34: Perception Proficiency
+Check Box 35: Performance Proficiency
+Check Box 36: Persuasion Proficiency
+Check Box 37: Religion Proficiency
+Check Box 38: Sleight of Hand Proficiency
+Check Box 39: Stealth Proficiency
+Check Box 40: Survival Proficiency
+
 */
 
 
 //Checkbox Testing
-// const CheckBoxTest = form.getCheckBox('Check Box 2')
+// const CheckBoxTest = form.getCheckBox('Check Box 11')
 // CheckBoxTest.check()
 
 //Fill in Character Info
-AlignmentField.setText('Neutral')
+if(details){
+NameField1.setText(details.name)
+AlignmentField.setText(details.alignment)
 ExperienceField.setText('250')
-PlayerNameField.setText('Test Player')
+PlayerNameField.setText(details.player)
+AgeField.setText(details.age)
+HeightField.setText(details.height)
+WeightField.setText(details.weight)
+EyesField.setText(details.eyes)
+SkinField.setText(details.skin)
+HairField.setText(details.hair)
+}
 
 
 //Fill in Ability Scores
@@ -213,11 +302,11 @@ ConMod.setText(`${findModifier(abilityScores.constitution)}`)
 
 
 
-NameField1.setText('Test Character')
+
 BackgroundField.setText(`${background}`)
 RaceField.setText(`${race}`)
 ClassField.setText(`${characterClass} 1`)
-ProficiencyField.setText('2')
+ProficiencyField.setText(`${profValue}`)
 
 
 
@@ -244,12 +333,12 @@ function downloadHandler(){
 
 
 
-  return (
-    <Button variant="gradient"
-                    gradient={{ from: 'rgba(105, 1, 1, 1)', to: 'red', deg: 360 }}
-                    align="center" my="0" py="0" fz=".6rem" size="compact-sm" onClick={downloadHandler}>Save Character Sheet</Button>
-  )
-  // return <iframe title="test" src={pdfInfo} ref={useRef(null)}type="application/pdf" />
+  // return (
+  //   <Button variant="gradient"
+  //                   gradient={{ from: 'rgba(105, 1, 1, 1)', to: 'red', deg: 360 }}
+  //                   align="center" my="0" py="0" fz=".6rem" size="compact-sm" onClick={downloadHandler}>Save Character Sheet</Button>
+  // )
+  return <iframe title="test" src={pdfInfo} ref={useRef(null)}type="application/pdf" />
   // return <a href="./src/Build/DnD_5E_CharacterSheet_FormFillable.pdf" type="application/pdf" target="_blank">Download Character Sheet</a>
 }
 export default CharacterSheetPDF

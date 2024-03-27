@@ -1,16 +1,16 @@
-import {Box} from '@mantine/core'
+import {Container} from '@mantine/core'
 
 
 function DescriptionPane(props){
 
 
         return(
-            <Box style={{overflow: "scroll"}} h="100%" bg="transparent" className="description-pane">
-                <h3>{props.heading}</h3>
+            <Container style={{overflow: "scroll"}} h="100%" bg="transparent" className="description-pane">
+                <h3 style={{margin: "0"}}>{props.heading}</h3>
                 
                     {props.description}
                 
-            </Box>)
+            </Container>)
     
 }
 

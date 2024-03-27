@@ -16,6 +16,7 @@ function CharacterPane(props){
     const chosenFeats = useSelector((state) => state.feats.feats)
     const abilityScores = useSelector((state) => state.abilityScores.abilityScores)
     const currentCharacterId = useSelector((state) => state.characterId.characterId)
+    const characterDetails = useSelector((state) => state.details.details)
     const dispatch = useDispatch()
 
 
@@ -54,7 +55,7 @@ function CharacterPane(props){
 
             <Grid.Col align="center" py=".35rem" span={12}>
                 <Badge my=".35rem" py=".35rem" style={{backgroundColor: "#16425B"}}>
-                {currentCharacterId === '65cf8a970e25d8831390da3d' ?  <span> Karlach </span> : <span>Unnamed Character</span>}</Badge>
+                {characterDetails ? characterDetails.name : <span>Unnamed Character</span>}</Badge>
                 <Image h={100} 
                 maw={150}
                 src={currentCharacterId === '65cf8a970e25d8831390da3d' ?  'src/assets/karlach.jpg' : 'src/assets/nameless-one.png'}
@@ -100,7 +101,7 @@ function CharacterPane(props){
                     align="center" my="0" py="0" fz=".6rem" size="compact-sm" onClick={postHandler}>Save As New Character</Button>
 
 
-                <CharacterSheetPDF />
+                {/* <CharacterSheetPDF /> */}
 
                     </Stack>
 

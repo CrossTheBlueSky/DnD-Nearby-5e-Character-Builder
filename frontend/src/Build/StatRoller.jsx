@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from '@mantine/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAbilityScoreChoice } from './abilityScoreChoiceSlice';
 
@@ -21,7 +22,7 @@ const generateStat = () => {
   return rolls.reduce((total, current) => total + current, 0); // Sum the remaining
 };
 
-const AbilityScoreGenerator = () => {
+const AbilityScoreGenerator = (props) => {
   const [stats, setStats] = useState([]);
 
   const dispatch = useDispatch();
@@ -59,8 +60,10 @@ const AbilityScoreGenerator = () => {
 
   return (
     <div>
-      <h2>Ability Score Generator</h2>
-      <button onClick={generateStats}>Generate Stats</button>
+      <h2>Ability Score Generator
+      <Button mx=".5rem" h="1rem" size="compact-xs"type="button" onClick={descriptionUpdate}>?</Button>
+      </h2>
+      <Button onClick={generateStats}>Generate Stats</Button>
       <div>
         <h3>Generated Stats</h3>
         {stats.map((stat, index) => (

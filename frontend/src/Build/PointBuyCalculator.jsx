@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {Button} from '@mantine/core'
+import { useSelector, useDispatch } from 'react-redux';
+import { setAbilityScoreChoice } from './abilityScoreChoiceSlice';
+
 
 const abilityCost = {
   8: 0,
@@ -15,6 +18,10 @@ const abilityCost = {
 const maxPoints = 27;
 
 const PointBuyCalculator = (props) => {
+
+  const dispatch = useDispatch();
+
+
   const [points, setPoints] = useState(maxPoints);
   const [abilities, setAbilities] = useState({
     strength: 8,
@@ -25,6 +32,7 @@ const PointBuyCalculator = (props) => {
     charisma: 8,
   });
 
+
   const updateAbilityScore = (ability, delta) => {
     const newValue = abilities[ability] + delta;
     if (newValue < 8 || newValue > 15) return;
@@ -33,7 +41,9 @@ const PointBuyCalculator = (props) => {
     if (points - cost < 0) return;
 
     setPoints(points - cost);
+    dispatch(setAbilityScoreChoice({ ...abilities, [ability]: newValue}));
     setAbilities({ ...abilities, [ability]: newValue });
+
   };
 
   function descriptionUpdate(){

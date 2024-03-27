@@ -11,24 +11,39 @@ function CharacterSheetPDF(){
 
   const abilityScores = useSelector((state) => state.abilityScores.abilityScores)
   const background = useSelector((state) => state.background.background)
-  const race = useSelector((state) => state.race.race)
+  const selectedRace = useSelector((state) => state.race.race)
   const characterClass = useSelector((state) => state.class.class)
   const feats = useSelector((state) => state.feats.feats)
   const skills = useSelector((state) => state.skills.skills)
   const details = useSelector((state) => state.details.details)
-  const selectedClassDetails = useSelector((state) => state.allClassData.classes.filter((classOption) => classOption.class[0].name === characterClass))
+  const allClassData = useSelector((state) => state.allClassData.classes)
+  const allRaceData = useSelector((state) => state.allRaceData.races)
+  let selectedClassDetails
+  let selectedRaceDetails
+
   const profValue = 2
   // const profValue = Math.ceil(level/4) + 1
 
   const [pdfInfo, setPdfInfo] = React.useState(null)
 
   React.useEffect(() => {
+    if(selectedRace){
+       selectedRaceDetails = allRaceData[0].race.filter((raceOption)=> raceOption.name + " (" + raceOption.source + ")" === selectedRace)
+    }
+    if(characterClass){
+       selectedClassDetails =allClassData.filter((classOption) => classOption.class[0].name === characterClass)
+    }
     fillForm()
-  },[abilityScores, characterClass])
-
+  },[abilityScores, characterClass, selectedRace])
 
 
 async function fillForm() {
+
+
+  if(!selectedClassDetails || !selectedRaceDetails){
+    return
+  }
+
 //  const formUrl = 'https://media.wizards.com/2022/dnd/downloads/DnD_5E_CharacterSheet_FormFillable.pdf'
 const formUrl = './src/Build/DnD_5E_CharacterSheet_FormFillable.pdf'
   
@@ -118,7 +133,9 @@ const ChaSaveCheck = form.getCheckBox('Check Box 22')
 
 //Filling Saving Throw Proficiency Checkboxes
 
-selectedClassDetails[0].class[0].proficiency.forEach((prof) => {
+  
+  selectedClassDetails[0].class[0].proficiency.forEach((prof) => {
+ 
   if(prof === 'str'){
     StrSaveCheck.check()
     StrSaveField.setText(`${parseInt(StrSaveField.getText())+profValue}`)
@@ -150,14 +167,12 @@ const SpeedField = form.getTextField('Speed')
 
 //Filling AC, Initiative, Speed, HP
 
-console.log(selectedClassDetails[0].class[0].hd.faces)
-console.log(findModifier(abilityScores.constitution))
 const healthVal = selectedClassDetails[0].class[0].hd.faces + findModifier(abilityScores.constitution)
 HitDiceField.setText(`${selectedClassDetails[0].class[0].hd.faces}`)
 MaxHPField.setText(`${healthVal}`)
 AcField.setText(`${10 + findModifier(abilityScores.dexterity)}`)
 InitiativeField.setText(`${findModifier(abilityScores.dexterity)}`)
-SpeedField.setText('30')
+SpeedField.setText(`${selectedRaceDetails.speed}` || '30')
 
 //Skill Fields
 
@@ -304,7 +319,7 @@ ConMod.setText(`${findModifier(abilityScores.constitution)}`)
 
 
 BackgroundField.setText(`${background}`)
-RaceField.setText(`${race}`)
+RaceField.setText(`${selectedRace}`)
 ClassField.setText(`${characterClass} 1`)
 ProficiencyField.setText(`${profValue}`)
 

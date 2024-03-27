@@ -2,6 +2,7 @@ import {Affix, Grid, Box, Button} from '@mantine/core'
 import {useSelector, useDispatch} from 'react-redux'
 import {setRaceChoice} from './raceChoiceSlice'
 import {setBuildTab} from './buildTabSlice'
+import {useEffect} from 'react'
 
         
 
@@ -19,7 +20,19 @@ function RaceChoice(props){
             return true
         }
     })
+    let description = null
   
+    useEffect(() => {
+        if (raceChoice) {
+            props.setHeading(raceChoice);
+        }
+        if(description){
+            props.setDescription(description)
+        }
+    }, [raceChoice]);
+
+
+    
     const raceArr1 = [...noNPCMain, ...subraceData]
     const noNPC = raceArr1.filter((race)=>{
         if(race.speed){
@@ -56,15 +69,13 @@ function RaceChoice(props){
     const allRaceOptions = noNPC.map((raceOption) => {
         const abilityBonusString = abilityBonuses(raceOption.ability)
         if (raceChoice.split(' ')[0] === raceOption.name){
-            props.setHeading(raceOption.name)
-            const description = raceOption.entries.map((entry) => {
+             description = raceOption.entries.map((entry) => {
                 return(
                     <Box key={entry.name}>
                     <p><strong>{entry.name}</strong></p>
                     <p>{entry.entries[0]}</p>
                     </Box>
                 )})
-            props.setDescription(description)
             raceOption.speed ? console.log(raceOption.speed) : console.log("no speed")
             return (<Grid key={raceOption.raceName + raceOption.page + raceOption.source + raceOption.name} >
                 <Grid.Col span={4} >

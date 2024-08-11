@@ -52,6 +52,10 @@ function ClassChoice(props){
     }
 
     function descriptionHandler(describedClass){
+
+        if(!describedClass[0]){
+            return}
+            
             const hitDie = <div>
                 <p><strong>Hit Die: d{describedClass[0].class[0].hd.faces}</strong></p>
             </div>

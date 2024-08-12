@@ -14,9 +14,6 @@ export default function Background() {
             </form>
             </div>
         </div>
-
-
-    </div>
     </>
 
     )

@@ -9,9 +9,16 @@
 # testing
 /coverage
 
+#sqlite
+
+*.sqlite
+
 # next.js
 /.next/
 /out/
+
+#raw 5e data
+/data
 
 # production
 /build

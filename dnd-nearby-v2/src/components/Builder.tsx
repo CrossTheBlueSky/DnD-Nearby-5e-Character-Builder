@@ -1,66 +1,44 @@
-import React from "react";
+"use client"
 
-function Builder() {
+import React, { useState } from 'react';
+import Background from './Background';
+import AbilityScores from './AbilityScores';
+import Classes from './Classes';
+import Spells from './Spells';
+
+const tabs = [
+  { label: 'Background and Race', content: <Background /> },
+  { label: 'Ability Scores', content: <AbilityScores /> },
+  { label: 'Classes', content: <Classes /> },
+  { label: 'Spells', content: <Spells /> },
+  { label: 'Items', content: <div>This is gonna be its own can of worms for later</div> },
+];
+
+const Builder: React.FC = () => {
+  const [activeTab, setActiveTab] = useState(0);
+
   return (
-    <>
-      <div className="flex space-x-4 mb-4">
-        {["Start", "Build", "Shop", "Manage"].map((tab) => (
-          <button key={tab} className="bg-red-800 px-4 py-2 rounded">
-            {tab}
+    <div className="w-full max-w-2xl mx-auto">
+      <div className="flex border-b border-gray-200">
+        {tabs.map((tab, index) => (
+          <button
+            key={index}
+            className={`py-2 px-4 font-medium text-sm focus:outline-none ${
+              activeTab === index
+                ? 'text-blue-600 border-b-2 border-blue-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+            onClick={() => setActiveTab(index)}
+          >
+            {tab.label}
           </button>
         ))}
       </div>
-      <div className="flex space-x-4 mb-4">
-        {[
-          "Class",
-          "Race",
-          "Background",
-          "Ability Scores",
-          "Skills",
-          "Feats",
-          "Retraining",
-        ].map((subtab) => (
-          <button key={subtab} className="bg-red-800 px-4 py-2 rounded text-sm">
-            {subtab}
-          </button>
-        ))}
+      <div className="mt-4">
+        {tabs[activeTab].content}
       </div>
-      <div className="bg-yellow-100 bg-opacity-20 p-4 rounded">
-        <h2 className="mb-2">Please select your class:</h2>
-        <div className="grid grid-cols-4 gap-2 mb-4">
-          {[
-            "Artificer",
-            "Barbarian",
-            "Bard",
-            "Cleric",
-            "Druid",
-            "Fighter",
-            "Monk",
-            "Paladin",
-            "Ranger",
-            "Rogue",
-            "Sorcerer",
-            "Warlock",
-            "Wizard",
-          ].map((className) => (
-            <button key={className} className="bg-gray-700 p-2 rounded">
-              {className}
-            </button>
-          ))}
-        </div>
-        <button className="bg-blue-500 px-4 py-2 rounded">Equipment</button>
-      </div>
-      <div className="mt-4 bg-yellow-100 bg-opacity-20 p-4 rounded">
-        <h3 className="font-bold mb-2">Build Checklist</h3>
-        <ul className="list-disc list-inside">
-          <li>Druid</li>
-          <li>Choose a race</li>
-          <li>Choose a background</li>
-          <li>Ability scores chosen</li>
-        </ul>
-      </div>
-    </>
+    </div>
   );
-}
+};
 
 export default Builder;
